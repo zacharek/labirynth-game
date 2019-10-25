@@ -1,0 +1,9 @@
+scs/
+.idea
+*~
+logs
+*.log
+npm-debug.log*
+package-lock.json
+node_modules/
+.sass-cache/
