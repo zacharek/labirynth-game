@@ -1,4 +1,4 @@
-scs/
+scss/
 .idea
 *~
 logs
@@ -7,3 +7,5 @@ npm-debug.log*
 package-lock.json
 node_modules/
 .sass-cache/
+gulpfile.js
+package.json
