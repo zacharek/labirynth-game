@@ -53,20 +53,30 @@ function newLevel(gridSize){
 }
 
 function createInOut(array) {
+    //Enterance generation
     let ranInY = Math.round(Math.random() * (array.length -1));
-    let ranInX= Math.round(Math.random() * (array.length -1));
-    let ranOutY= Math.round(Math.random() * (array.length -1));
-    let ranOutX= Math.round(Math.random() * (array.length -1));
+    let ranInX = Math.round(Math.random() * (array.length -1));
+    //Exit generation
+    let ranOutY = Math.round(Math.random() * (array.length -1));
+    let ranOutX = Math.round(Math.random() * (array.length -1));
+    //condition if pos x of enterance is too close to pos x of exit
+    while (Math.abs(ranInX-ranOutX)<4){
+        ranOutX = Math.round(Math.random() * (array.length -1));
+    }
+    //condition if pos y of enterance is too close to pos y of exit
+    while (Math.abs(ranInY-ranOutY)<4){
+        ranOutY = Math.round(Math.random() * (array.length -1));
+    }
+    //putting enterance position into generator
     array[ranInY][ranInX].isEnter=true;
     array[ranInY][ranInX].wall=false;
+    //putting exit position into generator
     array[ranOutY][ranOutX].isExit=true;
     array[ranOutY][ranOutX].wall=false;
-    /*need to add condition when enter is same as exit*/
-    console.log(array[ranInY][ranInX], array[ranOutY][ranOutX]);
 }
 
 function createPass(array, callback) {
-
+    //generator
 }
 
 function createGrid(array) {
@@ -74,6 +84,7 @@ function createGrid(array) {
         elem.forEach(function (object, indexx) {
             let newBlock = document.createElement("div");
             newBlock.classList.add("game_block");
+            //adding class positions for troubleshooting
             newBlock.classList.add(`posX-${indexx}`);
             newBlock.classList.add(`posY-${indexy}`);
             if (object.isEnter===true){
@@ -91,4 +102,3 @@ function createGrid(array) {
         })
     })
 }
-
