@@ -40,7 +40,7 @@ function newLevel(gridSize){
     for (let y=1;y<=gridSize;y++){
         let levelY=[];
         for (let x=1;x<=gridSize;x++){
-            levelY.push({wall: false,
+            levelY.push({wall: true,
                          isEnter: false,
                          isExit: false,
                          isEdited:false});
@@ -80,9 +80,11 @@ function createInOut(array) {
 }
 
 function createPass(enterExitPosArray, levelArray) {
-    let counter = 0;
-    while (enterExitPosArray[0]+counter<enterExitPosArray[2]) { //creating pass when exit is to the right of enterance
-        counter++;
+    let counterX = 0;
+    let counterY = 0;
+    let tempX =0;
+    while (enterExitPosArray[0]+counterX<enterExitPosArray[2]) { //creating pass when exit is to the right of enterance
+        counterX++;
         //creating enter border
         //top border
         levelArray[enterExitPosArray[1]+1][enterExitPosArray[0]].wall=true;
@@ -94,20 +96,21 @@ function createPass(enterExitPosArray, levelArray) {
         levelArray[enterExitPosArray[1]-1][enterExitPosArray[0]].wall=true;
         levelArray[enterExitPosArray[1]-1][enterExitPosArray[0]].isEdited=true;
         //creating pass
-        levelArray[enterExitPosArray[1]][enterExitPosArray[0]+counter].wall=false;
-        levelArray[enterExitPosArray[1]][enterExitPosArray[0]+counter].isEdited=true;
+        levelArray[enterExitPosArray[1]][enterExitPosArray[0]+counterX].wall=false;
+        levelArray[enterExitPosArray[1]][enterExitPosArray[0]+counterX].isEdited=true;
         //creating top border
-        levelArray[enterExitPosArray[1]-1][enterExitPosArray[0]+counter].wall=true;
-        levelArray[enterExitPosArray[1]-1][enterExitPosArray[0]+counter].isEdited=true;
+        levelArray[enterExitPosArray[1]-1][enterExitPosArray[0]+counterX].wall=true;
+        levelArray[enterExitPosArray[1]-1][enterExitPosArray[0]+counterX].isEdited=true;
         //creating right border
-        levelArray[enterExitPosArray[1]][enterExitPosArray[0]+1+counter].wall=true;
-        levelArray[enterExitPosArray[1]][enterExitPosArray[0]+1+counter].isEdited=true;
+        levelArray[enterExitPosArray[1]][enterExitPosArray[0]+1+counterX].wall=true;
+        levelArray[enterExitPosArray[1]][enterExitPosArray[0]+1+counterX].isEdited=true;
         //creating bottom border
-        levelArray[enterExitPosArray[1]+1][enterExitPosArray[0]+counter].wall=true;
-        levelArray[enterExitPosArray[1]+1][enterExitPosArray[0]+counter].isEdited=true;
+        levelArray[enterExitPosArray[1]+1][enterExitPosArray[0]+counterX].wall=true;
+        levelArray[enterExitPosArray[1]+1][enterExitPosArray[0]+counterX].isEdited=true;
+        tempX=enterExitPosArray[0]+counterX;
     }
-    while (enterExitPosArray[0]+counter>enterExitPosArray[2]) { //creating pass when exit is to the left of enterance
-        counter--;
+    while (enterExitPosArray[0]+counterX>enterExitPosArray[2]) { //creating pass when exit is to the left of enterance
+        counterX--;
         //creating enter border
         //top border
         levelArray[enterExitPosArray[1]+1][enterExitPosArray[0]].wall=true;
@@ -119,48 +122,49 @@ function createPass(enterExitPosArray, levelArray) {
         levelArray[enterExitPosArray[1]-1][enterExitPosArray[0]].wall=true;
         levelArray[enterExitPosArray[1]-1][enterExitPosArray[0]].isEdited=true;
         //creating pass
-        levelArray[enterExitPosArray[1]][enterExitPosArray[0]+counter].wall=false;
-        levelArray[enterExitPosArray[1]][enterExitPosArray[0]+counter].isEdited=true;
+        levelArray[enterExitPosArray[1]][enterExitPosArray[0]+counterX].wall=false;
+        levelArray[enterExitPosArray[1]][enterExitPosArray[0]+counterX].isEdited=true;
         //creating top border
-        levelArray[enterExitPosArray[1]-1][enterExitPosArray[0]+counter].wall=true;
-        levelArray[enterExitPosArray[1]-1][enterExitPosArray[0]+counter].isEdited=true;
+        levelArray[enterExitPosArray[1]-1][enterExitPosArray[0]+counterX].wall=true;
+        levelArray[enterExitPosArray[1]-1][enterExitPosArray[0]+counterX].isEdited=true;
         //creating left border
-        levelArray[enterExitPosArray[1]][enterExitPosArray[0]-1+counter].wall=true;
-        levelArray[enterExitPosArray[1]][enterExitPosArray[0]-1+counter].isEdited=true;
+        levelArray[enterExitPosArray[1]][enterExitPosArray[0]-1+counterX].wall=true;
+        levelArray[enterExitPosArray[1]][enterExitPosArray[0]-1+counterX].isEdited=true;
         //creating bottom border
-        levelArray[enterExitPosArray[1]+1][enterExitPosArray[0]+counter].wall=true;
-        levelArray[enterExitPosArray[1]+1][enterExitPosArray[0]+counter].isEdited=true;
+        levelArray[enterExitPosArray[1]+1][enterExitPosArray[0]+counterX].wall=true;
+        levelArray[enterExitPosArray[1]+1][enterExitPosArray[0]+counterX].isEdited=true;
+        tempX=enterExitPosArray[0]+counterX;
     }
-    /*while (enterExitPosArray[1]+counter<enterExitPosArray[3]) { //creating pass when exit is lower than enterance
-        counter++;
+    while (enterExitPosArray[1]+counterY<enterExitPosArray[3]) { //creating pass when exit is lower than enterance
+        counterY++;
         //creating pass
-        levelArray[enterExitPosArray[1]][enterExitPosArray[0]+counter].wall=false;
-        levelArray[enterExitPosArray[1]][enterExitPosArray[0]+counter].isEdited=true;
-        //creating top border
-        levelArray[enterExitPosArray[1]-1][enterExitPosArray[0]+counter].wall=true;
-        levelArray[enterExitPosArray[1]-1][enterExitPosArray[0]+counter].isEdited=true;
+        levelArray[enterExitPosArray[1]+counterY][tempX].wall=false;
+        levelArray[enterExitPosArray[1]+counterY][tempX].isEdited=true;
+        //creating left border
+        levelArray[enterExitPosArray[1]+counterY][tempX-1].wall=true;
+        levelArray[enterExitPosArray[1]+counterY][tempX-1].isEdited=true;
         //creating right border
-        levelArray[enterExitPosArray[1]][enterExitPosArray[0]+1+counter].wall=true;
-        levelArray[enterExitPosArray[1]][enterExitPosArray[0]+1+counter].isEdited=true;
+        levelArray[enterExitPosArray[1]+counterY][tempX+1].wall=true;
+        levelArray[enterExitPosArray[1]+counterY][tempX+1].isEdited=true;
         //creating bottom border
-        levelArray[enterExitPosArray[1]+1][enterExitPosArray[0]+counter].wall=true;
-        levelArray[enterExitPosArray[1]+1][enterExitPosArray[0]+counter].isEdited=true;
+        levelArray[enterExitPosArray[1]+1+counterY][tempX].wall=true;
+        levelArray[enterExitPosArray[1]+1+counterY][tempX].isEdited=true;
     }
-    while (enterExitPosArray[1]+counter>enterExitPosArray[3]) { //creating pass when exit is higher than enterance
-        counter--;
+    while (enterExitPosArray[1]+counterY>enterExitPosArray[3]) { //creating pass when exit is higher than enterance
+        counterY--;
         //creating pass
-        levelArray[enterExitPosArray[1]][enterExitPosArray[0]+counter].wall=false;
-        levelArray[enterExitPosArray[1]][enterExitPosArray[0]+counter].isEdited=true;
+        levelArray[enterExitPosArray[1]+counterY][tempX].wall=false;
+        levelArray[enterExitPosArray[1]+counterY][tempX].isEdited=true;
         //creating top border
-        levelArray[enterExitPosArray[1]-1][enterExitPosArray[0]+counter].wall=true;
-        levelArray[enterExitPosArray[1]-1][enterExitPosArray[0]+counter].isEdited=true;
+        levelArray[enterExitPosArray[1]-1+counterY][tempX].wall=true;
+        levelArray[enterExitPosArray[1]-1+counterY][tempX].isEdited=true;
         //creating left border
-        levelArray[enterExitPosArray[1]][enterExitPosArray[0]-1+counter].wall=true;
-        levelArray[enterExitPosArray[1]][enterExitPosArray[0]-1+counter].isEdited=true;
-        //creating bottom border
-        levelArray[enterExitPosArray[1]+1][enterExitPosArray[0]+counter].wall=true;
-        levelArray[enterExitPosArray[1]+1][enterExitPosArray[0]+counter].isEdited=true;
-    }*/
+        levelArray[enterExitPosArray[1]+counterY][tempX-1].wall=true;
+        levelArray[enterExitPosArray[1]+counterY][tempX-1].isEdited=true;
+        //creating right border
+        levelArray[enterExitPosArray[1]+counterY][tempX+1].wall=true;
+        levelArray[enterExitPosArray[1]+counterY][tempX+1].isEdited=true;
+    }
 }
 
 function createGrid(array) {
