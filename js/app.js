@@ -1,23 +1,10 @@
 let gameContainer = document.querySelector(".game_grid");
-let gridArray = newLevel(25);
-passLengthen(createPass(createInOut(gridArray), gridArray));
-createGrid(gridArray);
-/*let griddSize = 25;
-console.log("start")
-for (let y=1;y<=griddSize;y++){
-    for (let x=1;x<=griddSize;x++){
-        let newBlock = document.createElement("div");
-        newBlock.classList.add("game_block")
-        newBlock.classList.add(`posX-${x}`);
-        newBlock.classList.add(`posY-${y}`);
-        gameContainer.appendChild(newBlock)
-    }
+
+function generateLevel(size,difficulty){
+    let gridArray = newLevel(size);
+    return createRoute(gridArray,difficulty*size);
+
 }
-console.log("stop")
-let charPos = document.querySelector(".posX-1");
-let char = document.createElement("div");
-char.classList.add("char");
-charPos.appendChild(char);*/
 
 document.addEventListener("keydown", function (elem) {
     if (elem.key==="ArrowRight"){
@@ -41,44 +28,394 @@ function newLevel(gridSize){
         for (let x=1;x<=gridSize;x++){
             levelY.push({wall: true,
                          isEnter: false,
-                         isExit: false,
-                         isEdited:false});
+                         isExit: false
+                        });
         }
         level.push(levelY)
     }
     return level;
 }
 
-function createInOut(array) {
+/*function createRoute(array) {
+    let passArray=[];
+    while(passArray.length<100 ){
+            //Entrance generation
+            let ranInY = Math.round(Math.random() * (array.length -1));
+            let ranInX = Math.round(Math.random() * (array.length -1));
+            passArray = [ranInX,ranInY];
+            let errorCount=0;
+            let errorState=false;
+            //sets entrance
+            array[ranInY][ranInX].isEnter=true;
+            array[ranInY][ranInX].wall=false;
+            array[ranInY][ranInX].isEdited=true;
+            while (passArray.length<100 && errorState==true){
+                let setTurn = Math.ceil(Math.random() * 4);
+                ranInX = passArray[passArray.length-2];
+                ranInY = passArray[passArray.length-1];
+                if (setTurn===1 && array[ranInY+1][ranInX]!==undefined && array[ranInY+2][ranInX]!==undefined){
+                   if(array[ranInY+1][ranInX].wall===false && array[ranInY+2][ranInX].wall===false){
+                       continue;
+                   }else{
+                       array[ranInY+1][ranInX].isEdited=true;
+                       array[ranInY+1][ranInX].wall=false;
+                       array[ranInY+2][ranInX].isEdited=true;
+                       array[ranInY+2][ranInX].wall=false;
+                       passArray.push(ranInX, ranInY+1, ranInX, ranInY+2);
+                       errorCount=0;
+                   }
+                }else if(setTurn===2 && array[ranInY-1][ranInX]!=undefined && array[ranInY-2][ranInX]!=undefined){
+
+                    if(array[ranInY-1][ranInX].wall===false && array[ranInY-2][ranInX].wall===false){
+                        continue;
+                    }else{
+                        array[ranInY-1][ranInX].isEdited=true;
+                        array[ranInY-1][ranInX].wall=false;
+                        array[ranInY-2][ranInX].isEdited=true;
+                        array[ranInY-2][ranInX].wall=false;
+                        passArray.push(ranInX, ranInY-1, ranInX, ranInY-2);
+                        errorCount=0;
+                    }
+                }else if(setTurn===3 && array[ranInY][ranInX+1]!=undefined && array[ranInY][ranInX+2]!=undefined ){
+
+                    if(array[ranInY][ranInX+1].wall===false && array[ranInY][ranInX+2].wall===false){
+                        continue;
+                    }else{
+                        array[ranInY][ranInX+1].isEdited=true;
+                        array[ranInY][ranInX+1].wall=false;
+                        array[ranInY][ranInX+2].isEdited=true;
+                        array[ranInY][ranInX+2].wall=false;
+                        passArray.push(ranInX+1, ranInY, ranInX+2, ranInY);
+                        errorCount=0;
+                    }
+                }else if(setTurn===4 && array[ranInY][ranInX-1]!=undefined && array[ranInY][ranInX-2]!=undefined){
+
+                    if(array[ranInY][ranInX-1].wall===false && array[ranInY][ranInX-2].wall===false){
+                        continue;
+                    }else{
+                        array[ranInY][ranInX-1].isEdited=true;
+                        array[ranInY][ranInX-1].wall=false;
+                        array[ranInY][ranInX-2].isEdited=true;
+                        array[ranInY][ranInX-2].wall=false;
+                        passArray.push(ranInX-1, ranInY, ranInX-2, ranInY);
+                        errorCount=0;
+                    }
+                }else{
+                    errorCount++;
+                    if (errorCount>4){
+                        errorState=true
+                        return passArray;
+                    }
+
+                }
+            }
+            array[passArray[passArray.length-1]][passArray[passArray.length-2]].isExit=true;
+            array[passArray[passArray.length-1]][passArray[passArray.length-2]].isEdited=true;
+
+        console.log(passArray)
+    }
+
+
+}*/
+
+function createRoute(entryArray,length) {
+    let passArray=[];
+    let filledArray;
+    let returnedObject;
+    let array=entryArray;
+    while(passArray.length<length) {
+        returnedObject=newRoute(array,length);
+        filledArray=returnedObject.filledLevel;
+        passArray=returnedObject.routePositions;
+        array=newLevel(entryArray.length) //czy jest efektywniejsza metoda, zeby nie generowac jeszcze raz tego samego
+
+    }
+        return fillSpaces(returnedObject);
+}
+
+/*
+function newRoute(entryArray,length) {
+    let array=entryArray;
     //Entrance generation
-    let ranInY = Math.round(Math.random() * (array.length -3))+1;  //temp change to fix bug when pos is next to edge
-    let ranInX = Math.round(Math.random() * (array.length -3))+1;  //Math.round(Math.random() * (array.length -1))
-    //Exit generation
-    let ranOutY = Math.round(Math.random() * (array.length -3))+1;
-    let ranOutX = Math.round(Math.random() * (array.length -3))+1;
-    //condition if pos x of entrance is too close to pos x of exit
-    while (Math.abs(ranInX-ranOutX)<4){
-        ranOutX = Math.round(Math.random() * (array.length -3))+1;
-    }
-    //condition if pos y of entrance is too close to pos y of exit
-    while (Math.abs(ranInY-ranOutY)<4){
-        ranOutY = Math.round(Math.random() * (array.length -3))+1;
-    }
-    //setting enter position into x:[0] and y:[1]  of array and exit x:[2] and y:[3]
-    let inOutArr = [ranInX, ranInY, ranOutX, ranOutY];
-    //putting entrance position into generator
+    let ranInY = Math.round(Math.random() * (array.length -1));
+    let ranInX = Math.round(Math.random() * (array.length -1));
+    let passArray = [ranInX,ranInY];
+    let errorCount=0;
+    //sets entrance
     array[ranInY][ranInX].isEnter=true;
     array[ranInY][ranInX].wall=false;
     array[ranInY][ranInX].isEdited=true;
-    //putting exit position into generator
-    array[ranOutY][ranOutX].isExit=true;
-    array[ranOutY][ranOutX].wall=false;
-    array[ranOutY][ranOutX].isEdited=true;
-    console.log(inOutArr);
-    return inOutArr;
+    while (passArray.length<length){
+        let setTurn = Math.ceil(Math.random() * 4);
+        ranInX = passArray[passArray.length-2];
+        ranInY = passArray[passArray.length-1];
+        if (errorCount>20){
+            return {filledLevel:entryArray, routePositions:passArray};
+        }else if (setTurn===1){
+            if (array[ranInY+1]!==undefined && array[ranInY+1][ranInX]!==undefined && array[ranInY+2]!==undefined && array[ranInY+2][ranInX]!==undefined){
+                if(array[ranInY+1][ranInX].wall===true && array[ranInY+2][ranInX].wall===true){
+                    array[ranInY+1][ranInX].isEdited=true;
+                    array[ranInY+1][ranInX].wall=false;
+                    array[ranInY+2][ranInX].isEdited=true;
+                    array[ranInY+2][ranInX].wall=false;
+                    passArray.push(ranInX, ranInY+1, ranInX, ranInY+2);
+                    errorCount=0;
+                }else{
+                    errorCount++;
+                }
+            }else{
+                errorCount++;
+            }
+        }else if(setTurn===2){
+            if (array[ranInY-1]!==undefined && array[ranInY-1][ranInX]!==undefined && array[ranInY-2]!==undefined && array[ranInY-2][ranInX]!==undefined){
+                if(array[ranInY-1][ranInX].wall===true && array[ranInY-2][ranInX].wall===true){
+                    array[ranInY-1][ranInX].isEdited=true;
+                    array[ranInY-1][ranInX].wall=false;
+                    array[ranInY-2][ranInX].isEdited=true;
+                    array[ranInY-2][ranInX].wall=false;
+                    passArray.push(ranInX, ranInY-1, ranInX, ranInY-2);
+                    errorCount=0;
+                }else{
+                    errorCount++;
+                }
+            }else{
+                errorCount++;
+            }
+        }else if(setTurn===3){
+            if (array[ranInY]!==undefined && array[ranInY][ranInX+1]!==undefined && array[ranInY]!==undefined && array[ranInY][ranInX+2]!==undefined){
+                if(array[ranInY][ranInX+1].wall===true && array[ranInY][ranInX+2].wall===true){
+                    array[ranInY][ranInX+1].isEdited=true;
+                    array[ranInY][ranInX+1].wall=false;
+                    array[ranInY][ranInX+2].isEdited=true;
+                    array[ranInY][ranInX+2].wall=false;
+                    passArray.push(ranInX+1, ranInY, ranInX+2, ranInY);
+                    errorCount=0;
+                }else{
+                    errorCount++;
+                }
+            }else{
+                errorCount++;
+            }
+        }else if(setTurn===4){
+            if (array[ranInY]!==undefined && array[ranInY][ranInX-1]!==undefined && array[ranInY]!==undefined && array[ranInY][ranInX-2]!==undefined){
+                if(array[ranInY][ranInX-1].wall===true && array[ranInY][ranInX-2].wall===true){
+                    array[ranInY][ranInX-1].isEdited=true;
+                    array[ranInY][ranInX-1].wall=false;
+                    array[ranInY][ranInX-2].isEdited=true;
+                    array[ranInY][ranInX-2].wall=false;
+                    passArray.push(ranInX-1, ranInY, ranInX-2, ranInY);
+                    errorCount=0;
+                }else{
+                    errorCount++;
+                }
+            }else{
+                errorCount++;
+            }
+        }
+    }
+    array[passArray[passArray.length-1]][passArray[passArray.length-2]].isExit=true;
+    array[passArray[passArray.length-1]][passArray[passArray.length-2]].isEdited=true;
+    return {filledLevel:array, routePositions:passArray};
+}
+*/
+
+function newRoute(entryArray,length) {
+    let array=entryArray;
+    //Entrance generation
+    let ranInY = Math.round(Math.random() * (array.length -1));
+    let ranInX = Math.round(Math.random() * (array.length -1));
+    let passArray = [ranInX,ranInY];
+    let errorCount=0;
+    //sets entrance
+    array[ranInY][ranInX].isEnter=true;
+    array[ranInY][ranInX].wall=false;
+    while (passArray.length<length){
+        let setTurn = Math.ceil(Math.random() * 4);
+        ranInX = passArray[passArray.length-2];
+        ranInY = passArray[passArray.length-1];
+        if (errorCount>10){
+            return {filledLevel:entryArray, routePositions:passArray};
+        }else if (setTurn===1){
+            if (array[ranInY+1]!==undefined && array[ranInY+1][ranInX]!==undefined) {
+                if (array[ranInY + 2] !== undefined && array[ranInY + 2][ranInX] !== undefined) {
+                    if (array[ranInY + 1][ranInX].wall === true && array[ranInY + 2][ranInX].wall === true) {
+                        if (array[ranInY + 1][ranInX - 1] === undefined || (array[ranInY + 1][ranInX - 1] !== undefined && array[ranInY + 1][ranInX - 1].wall === true)) {
+                            if (array[ranInY + 1][ranInX + 1] === undefined || (array[ranInY + 1][ranInX + 1] !== undefined && array[ranInY + 1][ranInX + 1].wall === true)) {
+                                array[ranInY + 1][ranInX].wall = false;
+                                passArray.push(ranInX, ranInY + 1);
+                                errorCount = 0;
+                            }
+                        }
+                    }else{
+                        errorCount++;
+                    }
+                }
+            }else{
+                errorCount++;
+            }
+        }else if(setTurn===2){
+            if (array[ranInY-1]!==undefined && array[ranInY-1][ranInX]!==undefined) {
+                if (array[ranInY - 2] !== undefined && array[ranInY - 2][ranInX] !== undefined) {
+                    if (array[ranInY - 1][ranInX].wall === true && array[ranInY - 2][ranInX].wall === true) {
+                        if (array[ranInY - 1][ranInX - 1] === undefined || (array[ranInY - 1][ranInX - 1] !== undefined && array[ranInY - 1][ranInX - 1].wall === true)) {
+                            if (array[ranInY - 1][ranInX + 1] === undefined || (array[ranInY - 1][ranInX + 1] !== undefined && array[ranInY - 1][ranInX + 1].wall === true)) {
+                                array[ranInY - 1][ranInX].wall = false;
+                                passArray.push(ranInX, ranInY - 1);
+                                errorCount = 0;
+                            }
+                        }
+                    }else{
+                        errorCount++;
+                    }
+                }
+            }else{
+                errorCount++;
+            }
+        }else if(setTurn===3){
+            if (array[ranInY]!==undefined && array[ranInY][ranInX+1]!==undefined) {
+                if (array[ranInY] !== undefined && array[ranInY][ranInX+2] !== undefined) {
+                    if (array[ranInY][ranInX+1].wall === true && array[ranInY][ranInX+2].wall === true) {
+                        if ((array[ranInY + 1] === undefined || array[ranInY + 1][ranInX + 1] === undefined) || (array[ranInY + 1][ranInX + 1] !== undefined && array[ranInY + 1][ranInX + 1].wall === true)) {
+                            if ((array[ranInY - 1] === undefined ||array[ranInY - 1][ranInX + 1] === undefined) || (array[ranInY - 1][ranInX + 1] !== undefined && array[ranInY - 1][ranInX + 1].wall === true)) {
+                                array[ranInY][ranInX + 1].wall = false;
+                                passArray.push(ranInX + 1, ranInY);
+                                errorCount = 0;
+                            }
+                        }
+                    }else{
+                        errorCount++;
+                    }
+                }
+            }else{
+                errorCount++;
+            }
+        }else if(setTurn===4){
+            if (array[ranInY]!==undefined && array[ranInY][ranInX-1]!==undefined) {
+                if (array[ranInY] !== undefined && array[ranInY][ranInX-2] !== undefined) {
+                    if (array[ranInY][ranInX-1].wall === true && array[ranInY][ranInX-2].wall === true) {
+                        if ((array[ranInY + 1] === undefined ||array[ranInY + 1][ranInX - 1] === undefined) || (array[ranInY + 1][ranInX - 1] !== undefined && array[ranInY + 1][ranInX - 1].wall === true)) {
+                            if ((array[ranInY - 1] === undefined ||array[ranInY - 1][ranInX - 1] === undefined) || (array[ranInY - 1][ranInX - 1] !== undefined && array[ranInY - 1][ranInX - 1].wall === true)) {
+                                array[ranInY][ranInX - 1].wall = false;
+                                passArray.push(ranInX - 1, ranInY);
+                                errorCount = 0;
+                            }
+                        }
+                    }else{
+                        errorCount++;
+                    }
+                }
+            }else{
+                errorCount++;
+            }
+        }
+    }
+    array[passArray[passArray.length-1]][passArray[passArray.length-2]].isExit=true;
+    return {filledLevel:array, routePositions:passArray};
 }
 
-function createPass(inOutArr, levelArray) { //needs reworking
+function fillSpaces(object) {
+    let mazeArray = object.routePositions;
+    let array = object.filledLevel;
+    let breakLength = 0;
+    let mainErrorCount = 0;
+    while (breakLength!==mazeArray.length || mainErrorCount<array.length*5){
+        breakLength = mazeArray.length;
+        let errorCount = 0;
+        let ranPos = Math.round(Math.random() * mazeArray.length/2)*2;
+        let ranInX = mazeArray[ranPos];
+        let ranInY = mazeArray[ranPos+1];
+        mazeArray.splice(ranPos,2);
+        mazeArray.push(ranInX);
+        mazeArray.push(ranInY);
+        while (errorCount<10){
+            ranInX = mazeArray[mazeArray.length-2];
+            ranInY = mazeArray[mazeArray.length-1];
+            let setTurn = Math.ceil(Math.random() * 4);
+            if (setTurn===1){
+                if (array[ranInY+1]!==undefined && array[ranInY+1][ranInX]!==undefined) {
+                    if (array[ranInY + 2] !== undefined && array[ranInY + 2][ranInX] !== undefined) {
+                        if (array[ranInY + 1][ranInX].wall === true && array[ranInY + 2][ranInX].wall === true) {
+                            if (array[ranInY + 1][ranInX - 1] === undefined || (array[ranInY + 1][ranInX - 1] !== undefined && array[ranInY + 1][ranInX - 1].wall === true)) {
+                                if (array[ranInY + 1][ranInX + 1] === undefined || (array[ranInY + 1][ranInX + 1] !== undefined && array[ranInY + 1][ranInX + 1].wall === true)) {
+                                    array[ranInY + 1][ranInX].wall = false;
+                                    mazeArray.push(ranInX, ranInY + 1);
+                                    errorCount = 0;
+                                }
+                            }
+                        }else{
+                            errorCount++;
+                        }
+                    }
+                }else{
+                    errorCount++;
+                }
+            }else if(setTurn===2){
+                if (array[ranInY-1]!==undefined && array[ranInY-1][ranInX]!==undefined) {
+                    if (array[ranInY - 2] !== undefined && array[ranInY - 2][ranInX] !== undefined) {
+                        if (array[ranInY - 1][ranInX].wall === true && array[ranInY - 2][ranInX].wall === true) {
+                            if (array[ranInY - 1][ranInX - 1] === undefined || (array[ranInY - 1][ranInX - 1] !== undefined && array[ranInY - 1][ranInX - 1].wall === true)) {
+                                if (array[ranInY - 1][ranInX + 1] === undefined || (array[ranInY - 1][ranInX + 1] !== undefined && array[ranInY - 1][ranInX + 1].wall === true)) {
+                                    array[ranInY - 1][ranInX].wall = false;
+                                    mazeArray.push(ranInX, ranInY - 1);
+                                    errorCount = 0;
+                                }
+                            }
+                        }else{
+                            errorCount++;
+                        }
+                    }
+                }else{
+                    errorCount++;
+                }
+            }else if(setTurn===3){
+                if (array[ranInY]!==undefined && array[ranInY][ranInX+1]!==undefined) {
+                    if (array[ranInY] !== undefined && array[ranInY][ranInX+2] !== undefined) {
+                        if (array[ranInY][ranInX+1].wall === true && array[ranInY][ranInX+2].wall === true) {
+                            if ((array[ranInY + 1] === undefined || array[ranInY + 1][ranInX + 1] === undefined) || (array[ranInY + 1][ranInX + 1] !== undefined && array[ranInY + 1][ranInX + 1].wall === true)) {
+                                if ((array[ranInY - 1] === undefined ||array[ranInY - 1][ranInX + 1] === undefined) || (array[ranInY - 1][ranInX + 1] !== undefined && array[ranInY - 1][ranInX + 1].wall === true)) {
+                                    array[ranInY][ranInX + 1].wall = false;
+                                    mazeArray.push(ranInX + 1, ranInY);
+                                    errorCount = 0;
+                                }
+                            }
+                        }else{
+                            errorCount++;
+                        }
+                    }
+                }else{
+                    errorCount++;
+                }
+            }else if(setTurn===4){
+                if (array[ranInY]!==undefined && array[ranInY][ranInX-1]!==undefined) {
+                    if (array[ranInY] !== undefined && array[ranInY][ranInX-2] !== undefined) {
+                        if (array[ranInY][ranInX-1].wall === true && array[ranInY][ranInX-2].wall === true) {
+                            if ((array[ranInY + 1] === undefined ||array[ranInY + 1][ranInX - 1] === undefined) || (array[ranInY + 1][ranInX - 1] !== undefined && array[ranInY + 1][ranInX - 1].wall === true)) {
+                                if ((array[ranInY - 1] === undefined ||array[ranInY - 1][ranInX - 1] === undefined) || (array[ranInY - 1][ranInX - 1] !== undefined && array[ranInY - 1][ranInX - 1].wall === true)) {
+                                    array[ranInY][ranInX - 1].wall = false;
+                                    mazeArray.push(ranInX - 1, ranInY);
+                                    errorCount = 0;
+                                }
+                            }
+                        }else{
+                            errorCount++;
+                        }
+                    }
+                }else{
+                    errorCount++;
+                }
+            }
+        }
+        if (breakLength!==mazeArray.length){
+            mainErrorCount=0
+        }
+        if (breakLength===mazeArray.length){
+            mainErrorCount++
+        }
+    }
+    return array
+}
+
+/*function createPass(inOutArr, levelArray) { //needs reworking
     let counterX = 0;
     let counterY = 0;
     let tempX =0;
@@ -170,16 +507,16 @@ function createPass(inOutArr, levelArray) { //needs reworking
 function passLengthen(inOutArr,) {
     let passLength = Math.abs(inOutArr[0]-inOutArr[2])+Math.abs(inOutArr[1]-inOutArr[3])-1;
     console.log(passLength)
-}
+}*/
 
-function createGrid(array) {
-    array.forEach(function (elem, indexy) {
-        elem.forEach(function (object, indexx) {
+function drawGrid(array) {
+    array.forEach(function (elem, indexY) {
+        elem.forEach(function (object, indexX) {
             let newBlock = document.createElement("div");
             newBlock.classList.add("game_block");
             //adding class positions for troubleshooting
-            newBlock.classList.add(`posX-${indexx}`);
-            newBlock.classList.add(`posY-${indexy}`);
+            newBlock.classList.add(`posX-${indexX}`);
+            newBlock.classList.add(`posY-${indexY}`);
             if (object.isEnter===true){
                 newBlock.classList.add("enter");
             }else if(object.isExit===true){
@@ -202,3 +539,5 @@ function clearGrid() {
         element.parentElement.firstElementChild.remove();
     })
 }
+
+generateLevel(50,6);

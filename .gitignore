@@ -8,4 +8,5 @@ package-lock.json
 node_modules/
 .sass-cache/
 gulpfile.js
-package.json
+.babelrc
+js/

@@ -1,5 +1,5 @@
 :root {
-  font-size: 20px; }
+  font-size: calc(100vh / 55); }
 
 * {
   margin: 0;
@@ -8,11 +8,15 @@
 body {
   background: #bada55; }
 
-.container {
+button {
+  font-size: 1rem; }
+
+#app {
   margin: 0 auto; }
 
 .main-panel {
-  width: 25rem;
+  width: 50rem;
+  height: 2rem;
   border: 1rem solid black;
   border-bottom: 0;
   display: flex;
@@ -20,8 +24,8 @@ body {
 
 .game_grid {
   border: 1rem solid black;
-  width: 25rem;
-  height: 25rem;
+  width: 50rem;
+  height: 50rem;
   display: flex;
   flex-wrap: wrap; }
 
@@ -35,10 +39,13 @@ body {
   background: gray; }
 
 .pass {
-  background: white; }
+  background: #fffaaa; }
 
 .enter {
-  background: green; }
+  background: orange; }
 
 .exit {
   background: red; }
+
+.main-pass {
+  background: blueviolet; }
