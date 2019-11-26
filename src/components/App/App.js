@@ -1,16 +1,28 @@
-import React from 'react';
+import React, {Component} from "react";
 import './App.scss';
-import Hello from "../Hello/Hello";
+import GameGrid from "../GameGrid/GameGrid";
+import generateLevel from "../LevelGeneration/generateLevel";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-          <Hello/>
-       <p>TEST</p>
-      </header>
-    </div>
-  );
+class App extends Component{
+    state={
+        level:[]
+    };
+    handleCLick = ()=>{
+        this.setState({level:generateLevel(50,6)})
+    };
+    render() {
+        return (
+            <>
+                <div className="main-panel">
+                    <p className="highscore">Higscore:</p>
+                    <p className="score">Score:</p>
+                    <p className="time">Time left:</p>
+                    <button onClick={this.handleCLick}>Generate Level</button>
+                </div>
+                <GameGrid level={this.state.level}/>
+            </>
+        )
+    }
 }
 
 export default App;
