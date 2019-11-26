@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/labirynth-game/static/css/main.0c297d0d.chunk.css",
+    "main.js": "/labirynth-game/static/js/main.5b1d495f.chunk.js",
+    "main.js.map": "/labirynth-game/static/js/main.5b1d495f.chunk.js.map",
+    "runtime-main.js": "/labirynth-game/static/js/runtime-main.31cb6c32.js",
+    "runtime-main.js.map": "/labirynth-game/static/js/runtime-main.31cb6c32.js.map",
+    "static/js/2.29349e84.chunk.js": "/labirynth-game/static/js/2.29349e84.chunk.js",
+    "static/js/2.29349e84.chunk.js.map": "/labirynth-game/static/js/2.29349e84.chunk.js.map",
+    "index.html": "/labirynth-game/index.html",
+    "precache-manifest.a9cbeedf280605687c99d7839ea2258b.js": "/labirynth-game/precache-manifest.a9cbeedf280605687c99d7839ea2258b.js",
+    "service-worker.js": "/labirynth-game/service-worker.js",
+    "static/css/main.0c297d0d.chunk.css.map": "/labirynth-game/static/css/main.0c297d0d.chunk.css.map"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.31cb6c32.js",
+    "static/js/2.29349e84.chunk.js",
+    "static/css/main.0c297d0d.chunk.css",
+    "static/js/main.5b1d495f.chunk.js"
+  ]
+}
