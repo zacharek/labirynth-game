@@ -1,25 +1,32 @@
 .game_grid{
-  border: 1rem solid black;
-  width: 50rem;
-  height: 50rem;
+  border: 1px solid black;
   display: flex;
   flex-wrap: wrap;
+  background: url("textures/grass.png");
+  height: 90vw;
+  width: 90vw;
 }
 .game_block{
   width: 1rem;
   height: 1rem;
-  box-sizing: border-box;
-  border: 1px solid white;
 }
 .wall{
-  background: gray;
+  background: url("textures/stone.png");
+  background-size: contain;
 }
-.pass{
-  background: #fffaaa;
+.pass {
 }
 .enter{
-  background: orange;
+  background: url("textures/enter.png");
+  background-size: contain;
 }
 .exit{
-  background: red;
+  background: url("textures/exit.png");
+  background-size: contain;
 }
+/*
+.player{
+  height: 5px;
+  width: 5px;
+  background: red;
+}*/
