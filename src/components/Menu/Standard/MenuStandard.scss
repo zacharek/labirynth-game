@@ -1,0 +1,72 @@
+.menu__standard{
+  height: 100%;
+  width: 100%;
+  background: purple;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  h1{
+    width: 100%;
+    height: 20%;
+    font-size: 6vw;
+  }
+  .menu__content{
+    display: flex;
+    width: 100%;
+    height: 60%;
+    justify-content: space-evenly;
+    h3{
+      font-size: 3vw;
+    }
+    .difficulty__box{
+      width: 30%;
+      height: 100%;
+      ul{
+        font-size: 2vw;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        height: 80%;
+        align-items: center;
+        li{
+          width: 80%;
+          height: 4vw;
+          border: 1px solid black;
+        }
+      }
+    }
+    .main{
+      width: 30%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      .play{
+        font-size: 6vw;
+        border: 1px solid black;
+        height: 30%;
+
+      }
+      .credits{
+        height: 30%;
+        border: 1px solid black;
+        font-size: 6vw;
+      }
+    }
+    .character__selection{
+      width: 30%;
+      height: 100%;
+      .character__slider{
+        input{
+          width: 60%;
+        }
+        width: 70%;
+        height: 80%;
+        background: green;
+        margin: 0 auto;
+      }
+    }
+  }
+}

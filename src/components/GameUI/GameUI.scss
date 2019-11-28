@@ -1,0 +1,19 @@
+.game__ui{
+  display: flex;
+  justify-content: space-between;
+  h2{
+    font-size: 4vw;
+  }
+  .menu__content{
+    display: flex;
+    flex-direction: column;
+  }
+  .players__info{
+    display: flex;
+    flex-direction: column;
+    p{
+      font-size: 2vw;
+    }
+  }
+
+}

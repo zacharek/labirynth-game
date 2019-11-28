@@ -5,8 +5,8 @@ import generateLevel from "../LevelGeneration/generateLevel";
 class GameGrid extends Component{
     state={
         level:[],
-        size:10, //min 10 max 50
-        difficulty:2 //min 1 max 6
+        size:this.props.genSettings.entrySize, //min 10 max 50
+        difficulty:this.props.genSettings.entryDifficulty //min 1 max 6
     };
     componentDidMount(){
         window.addEventListener("keydown",(e)=>{
