@@ -5,7 +5,7 @@ import generateLevel from "../LevelGeneration/generateLevel";
 class GameGrid extends Component{
     state={
         level:[],
-        size:25, //min 10 max 50
+        size:10, //min 10 max 50
         difficulty:2 //min 1 max 6
     };
     componentDidMount(){
@@ -21,17 +21,34 @@ class GameGrid extends Component{
             }
         })
     }
-    componentWillUnmount() {
-        //window.removeEventListener
-    }
     shouldComponentUpdate(prevProps,prevState) {
+        let lvl
         if (this.props.start !== prevProps.start){
-            this.setState({level:generateLevel(this.state.size,this.state.difficulty)});
+            lvl =generateLevel(this.state.size,this.state.difficulty)
+        }else if(this.state.difficulty !== prevState.difficulty && this.state.size !== prevState.size){
+            lvl =generateLevel(this.state.size+5,3)
+        }else if(this.state.size !== prevState.size) {
+            lvl =generateLevel(this.state.size+5,this.state.difficulty)
+        }else if(this.state.difficulty !== prevState.difficulty){
+            lvl =generateLevel(this.state.size,this.state.difficulty+1)
+        }else {
+            return this.state.level[0] !== prevState.level[0];
+        }
+        this.setState({level:lvl})
+        return true
+
+/*
+        if (this.props.start !== prevProps.start){
+            let lvl =generateLevel(this.state.size,this.state.difficulty)
+            this.setState({level:lvl});
             return true
         }else if(this.state.difficulty !== prevState.difficulty){
-            this.setState({level:generateLevel(this.state.size,this.state.difficulty)});
+            this.setState({level:generateLevel(this.state.size,this.state.difficulty+1)});
             return true
-        }else return this.state.level[0] !== prevState.level[0];
+        }else if(this.state.size !== prevState.size) {
+            this.setState({level: generateLevel(this.state.size+5, 3)});
+            return true
+        }else return this.state.level[0] !== prevState.level[0];*/
     }
     handleMoveRight=()=>{
         let level = this.state.level[1];
@@ -91,12 +108,13 @@ class GameGrid extends Component{
             this.setState({difficulty:this.state.difficulty+1})
         }else if (this.state.difficulty===6){
             console.log("na ten moment nie ma więcej poziomów")
+            this.setState({difficulty:3, size:this.state.size+5})
         }else if (this.state.size>50){
-            console.log("brawo, nie ma więcej poziomów dla Ciebie")
+            console.log("brawo, ale nie ma więcej poziomów dla Ciebie")
         }else{
             console.log("coś jest nie tak")
         }
-    }
+    };
     buildLevel(level,size){
         let output;
         if (level!==undefined){
