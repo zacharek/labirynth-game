@@ -26,7 +26,6 @@ function createRoute(entryArray,length) {
         passArray=returnedObject.routePositions;
         array=newLevel(entryArray.length)
     }
-    console.log()
     return [[passArray[0],passArray[1]], fillSpaces(returnedObject)];
 }
 function newRoute(entryArray,length) {
