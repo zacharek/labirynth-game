@@ -22,7 +22,7 @@ class GameGrid extends Component{
         })
     }
     shouldComponentUpdate(prevProps,prevState) {
-        let lvl
+        let lvl;
         if (this.props.start !== prevProps.start){
             lvl =generateLevel(this.state.size,this.state.difficulty)
         }else if(this.state.difficulty !== prevState.difficulty && this.state.size !== prevState.size){
@@ -34,7 +34,7 @@ class GameGrid extends Component{
         }else {
             return this.state.level[0] !== prevState.level[0];
         }
-        this.setState({level:lvl})
+        this.setState({level:lvl});
         return true
 
 /*
@@ -60,6 +60,7 @@ class GameGrid extends Component{
             this.setState({level:[position,level]})
         }
         if (level[position[1]][position[0]].isExit===1){
+            this.props.score(this.state)
             this.handleCompleted()
         }
     };
@@ -73,6 +74,7 @@ class GameGrid extends Component{
             this.setState({level:[position,level]})
         }
         if (level[position[1]][position[0]].isExit===1){
+            this.props.score(this.state)
             this.handleCompleted()
         }
     };
@@ -86,6 +88,7 @@ class GameGrid extends Component{
             this.setState({level:[position,level]})
         }
         if (level[position[1]][position[0]].isExit===1){
+            this.props.score(this.state)
             this.handleCompleted()
         }
     };
@@ -99,6 +102,7 @@ class GameGrid extends Component{
             this.setState({level:[position,level]})
         }
         if (level[position[1]][position[0]].isExit===1){
+            this.props.score(this.state)
             this.handleCompleted()
         }
     };
@@ -107,9 +111,9 @@ class GameGrid extends Component{
             console.log("Brawo, pora na kolejny poziom")
             this.setState({difficulty:this.state.difficulty+1})
         }else if (this.state.difficulty===6){
-            console.log("na ten moment nie ma więcej poziomów")
+            console.log("Brawo, pora na kolejny poziom")
             this.setState({difficulty:3, size:this.state.size+5})
-        }else if (this.state.size>50){
+        }else if (this.state.size>60){
             console.log("brawo, ale nie ma więcej poziomów dla Ciebie")
         }else{
             console.log("coś jest nie tak")

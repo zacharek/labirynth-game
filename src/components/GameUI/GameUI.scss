@@ -1,16 +1,34 @@
 .game__ui{
   display: flex;
   justify-content: space-between;
+  background: #994a12;
+  border: 4px solid black;
   h2{
     font-size: 4vw;
   }
   .menu__content{
     display: flex;
     flex-direction: column;
+    text-align: center;
+    width: calc(90vw - 90vh / 2);
+    div{
+      font-size: 2vw;
+      cursor: pointer;
+    }
+    div:hover{
+      transform: scale(1.2);
+    }
+  }
+  .main{
+    height: 88vh;
+    width: 88vh;
+    border: 1vh solid black;
   }
   .players__info{
     display: flex;
     flex-direction: column;
+    width: calc(90vw - 88vh / 2);
+    text-align: center;
     p{
       font-size: 2vw;
     }

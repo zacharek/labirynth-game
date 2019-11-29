@@ -29,9 +29,8 @@ class MenuStandard extends Component{
                         </div>
                         <div className="character__selection">
                             <h3>CHARACTER</h3>
-
                             <div className="character__slider">
-                                <input type="text"/>
+                                <div className="character standby"></div>
                             </div>
                         </div>
                     </div>

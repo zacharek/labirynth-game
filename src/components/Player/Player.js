@@ -4,7 +4,7 @@ import './Player.scss'
 class Player extends Component{
     render() {
         return(
-            <div className="gracz">
+            <div className="player">
 
             </div>
         )

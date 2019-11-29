@@ -1,10 +1,9 @@
 .game_grid{
-  border: 1px solid black;
   display: flex;
   flex-wrap: wrap;
   background: url("textures/grass.png");
-  height: 85vh;
-  width: 85vh;
+  height: 88vh;
+  width: 88vh;
 }
 .game_block{
   width: 1rem;
