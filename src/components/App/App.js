@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import './App.scss';
-import GameGrid from "../GameGrid/GameGrid";
 import EntryUI from "../EntryUI/EntryUI";
 import MenuStandard from "../Menu/Standard/MenuStandard";
 import GameUI from "../GameUI/GameUI";
@@ -40,7 +39,7 @@ class App extends Component{
             }
         }
         this.setState({generationSettings:genSettings})
-    }
+    };
     render() {
         if (this.state.firstEntry!==0){
             return <EntryUI handleClick={this.handleClickEntry}/>
