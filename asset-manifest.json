@@ -1,22 +1,24 @@
 {
   "files": {
-    "main.css": "/labyrinth-game/static/css/main.82c2b1f1.chunk.css",
-    "main.js": "/labyrinth-game/static/js/main.c8469565.chunk.js",
-    "main.js.map": "/labyrinth-game/static/js/main.c8469565.chunk.js.map",
+    "main.css": "/labyrinth-game/static/css/main.c505b3a6.chunk.css",
+    "main.js": "/labyrinth-game/static/js/main.654f09f1.chunk.js",
+    "main.js.map": "/labyrinth-game/static/js/main.654f09f1.chunk.js.map",
     "runtime-main.js": "/labyrinth-game/static/js/runtime-main.00c9bdb7.js",
     "runtime-main.js.map": "/labyrinth-game/static/js/runtime-main.00c9bdb7.js.map",
     "static/js/2.f8fcd6ae.chunk.js": "/labyrinth-game/static/js/2.f8fcd6ae.chunk.js",
     "static/js/2.f8fcd6ae.chunk.js.map": "/labyrinth-game/static/js/2.f8fcd6ae.chunk.js.map",
     "index.html": "/labyrinth-game/index.html",
-    "precache-manifest.9be87f73ffe3ab6ccb3f7fbf9451aad5.js": "/labyrinth-game/precache-manifest.9be87f73ffe3ab6ccb3f7fbf9451aad5.js",
+    "precache-manifest.7cc85f8119ce3fb4a06d7b72b91ec48d.js": "/labyrinth-game/precache-manifest.7cc85f8119ce3fb4a06d7b72b91ec48d.js",
     "service-worker.js": "/labyrinth-game/service-worker.js",
-    "static/css/main.82c2b1f1.chunk.css.map": "/labyrinth-game/static/css/main.82c2b1f1.chunk.css.map",
+    "static/css/main.c505b3a6.chunk.css.map": "/labyrinth-game/static/css/main.c505b3a6.chunk.css.map",
+    "static/media/App.scss": "/labyrinth-game/static/media/ARCADECLASSIC.f99b589a.woff",
+    "static/media/MenuStandard.scss": "/labyrinth-game/static/media/Player1.c0cfe6a3.png",
     "static/media/GameGrid.scss": "/labyrinth-game/static/media/exit.2fde9297.png"
   },
   "entrypoints": [
     "static/js/runtime-main.00c9bdb7.js",
     "static/js/2.f8fcd6ae.chunk.js",
-    "static/css/main.82c2b1f1.chunk.css",
-    "static/js/main.c8469565.chunk.js"
+    "static/css/main.c505b3a6.chunk.css",
+    "static/js/main.654f09f1.chunk.js"
   ]
 }
