@@ -90,9 +90,11 @@
 .character{
   height: 64px;
   width: 64px;
-  transform:scale(3);
   background: url("../../Player/img/Player1.png");
   overflow: hidden;
+}
+.in__menu{
+  transform:scale(3);
 }
 .standby{
   background-position-y: -768px;
@@ -115,22 +117,22 @@
   animation: move-right 0.5s steps(8) infinite;
 }
 @keyframes move-down {
-  0% { background-position-x: 0px; }
+  0% { background-position-x: 0; }
   100% { background-position-x: -512px; }
 }
 @keyframes move-up {
-  0% { background-position-x: 0px; }
+  0% { background-position-x: 0; }
   100% { background-position-x: -512px; }
 }
 @keyframes move-right {
-  0% { background-position-x: 0px; }
+  0% { background-position-x: 0; }
   100% { background-position-x: -512px; }
 }
 @keyframes move-left {
-  0% { background-position-x: 0px; }
+  0% { background-position-x: 0; }
   100% { background-position-x: -512px; }
 }
 @keyframes standby {
-  0% { background-position-x: 0px; }
+  0% { background-position-x: 0; }
   100% { background-position-x: -512px; }
 }

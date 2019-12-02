@@ -158,12 +158,16 @@ class GameBlock extends Component{
 
     }
     render() {
-        let style={width:100/this.props.size+"%", height:100/this.props.size+"%"}
+        let styling={width:100/this.props.size+"%", height:100/this.props.size+"%"};
+        let size = 10/this.props.size;
         if(this.props.gotPlayer===1){
             return(
                 <div className={`game_block ${this.props.class}`}
-                     style={style}>
-                    <div className="player"/>
+                     style={styling}>
+
+                    <div className="player"></div>
+                    {/*<div className="character in__game standby" style={{marginLeft:0,marginTop:0,transform:`scale(${size})`}}/>*/}
+
                 </div>
             )
         }else{

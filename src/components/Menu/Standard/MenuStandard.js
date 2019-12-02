@@ -30,7 +30,7 @@ class MenuStandard extends Component{
                         <div className="character__selection">
                             <h3>CHARACTER</h3>
                             <div className="character__slider">
-                                <div className="character standby"></div>
+                                <div className="character in__menu move-right"></div>
                             </div>
                         </div>
                     </div>
@@ -52,9 +52,8 @@ class MenuStandard extends Component{
                         <Credits handleCredits={this.handleCredits}/>
                         <div className="character__selection">
                             <h3>CHARACTER</h3>
-
                             <div className="character__slider">
-                                <input type="text"/>
+                                <div className="character in__menu move-right"></div>
                             </div>
                         </div>
                     </div>

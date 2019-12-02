@@ -23,9 +23,12 @@
   background: url("textures/exit.png");
   background-size: contain;
 }
+.in__game{
+  position: relative;
+}
 .player{
-  margin: 25%;
   height: 50%;
-  width: 50%;
-  background: red;
+  width:50%;
+  background:red;
+  margin: 25%;
 }

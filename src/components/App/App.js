@@ -39,7 +39,7 @@ class App extends Component{
             }
         }
         this.setState({generationSettings:genSettings})
-    }
+    };
     render() {
         if (this.state.firstEntry!==0){
             return <EntryUI handleClick={this.handleClickEntry}/>
