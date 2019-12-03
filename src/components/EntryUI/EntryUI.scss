@@ -9,7 +9,8 @@
 .entry__UI{
   height: 100%;
   width: 100%;
-  background: purple;
+  background: #994a12;
+  border: 4px solid black;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,9 +21,15 @@
   h2{
     font-size: 2vw;
   }
-  button{
+  .button{
     width: 25%;
     height: 3vw;
-    font-size: 2vw;
+    font-size: 3vw;
+    border: 3px solid black;
+    text-align: center;
+    cursor: pointer;
+  }
+  .button:hover{
+    transform: scale(1.1);
   }
 }

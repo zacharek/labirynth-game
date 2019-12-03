@@ -7,9 +7,9 @@ class GameGrid extends Component{
             console.log("Brawo, pora na kolejny poziom")
             this.setState({difficulty:this.state.difficulty+1})
         }else if (this.state.difficulty===6){
-            console.log("na ten moment nie ma więcej poziomów")
+            console.log("Brawo, pora na kolejny poziom")
             this.setState({difficulty:3, size:this.state.size+5})
-        }else if (this.state.size>50){
+        }else if (this.state.size>60){
             console.log("brawo, ale nie ma więcej poziomów dla Ciebie")
         }else{
             console.log("coś jest nie tak")

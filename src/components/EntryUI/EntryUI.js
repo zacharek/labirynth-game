@@ -8,7 +8,7 @@ class EntryUI extends Component{
                 <div className="logo"></div>
                 <h2>LABYRINTH</h2>
                 <h1>GAME</h1>
-                <button onClick={this.props.handleClick}>CONTINUE</button>
+                <div className="button" onClick={this.props.handleClick}>CONTINUE</div>
             </div>
         )
     }
