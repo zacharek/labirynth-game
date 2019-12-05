@@ -2,44 +2,31 @@ import React, {Component} from "react";
 import './GameGrid.scss';
 
 class GameGrid extends Component{
-    handleCompleted=()=>{
-        if (this.state.difficulty<6){
-            console.log("Brawo, pora na kolejny poziom")
-            this.setState({difficulty:this.state.difficulty+1})
-        }else if (this.state.difficulty===6){
-            console.log("Brawo, pora na kolejny poziom")
-            this.setState({difficulty:3, size:this.state.size+5})
-        }else if (this.state.size>60){
-            console.log("brawo, ale nie ma więcej poziomów dla Ciebie")
-        }else{
-            console.log("coś jest nie tak")
-        }
-    };
     shouldComponentUpdate(prevProps) {
         if (this.props.level!==prevProps.level){
             return true
         }else return false
     }
-    buildLevel(level,size){
+    buildLevel(level){
         let output;
         if (level!==undefined){
             output = level.map((elem, indexY) => {
                 return (
                     elem.map((object, indexX) => {
                         if (object.isEnter===1 && object.hasPlayer===1){
-                            return <GameBlock key={`X${indexX}Y${indexY}`} class="enter" size={size} gotPlayer={1}/>
+                            return <GameBlock key={`X${indexX}Y${indexY}`} class="enter" size={this.props.size}/>
                         }else if(object.isEnter===1){
-                            return <GameBlock key={`X${indexX}Y${indexY}`} class="enter" size={size} gotPlayer={0}/>
+                            return <GameBlock key={`X${indexX}Y${indexY}`} class="enter" size={this.props.size}/>
                         }else if(object.isExit===1 && object.hasPlayer===1){
-                            return <GameBlock key={`X${indexX}Y${indexY}`} class="exit" size={size} gotPlayer={1}/>
+                            return <GameBlock key={`X${indexX}Y${indexY}`} class="exit" size={this.props.size}/>
                         }else if(object.isExit===1){
-                            return <GameBlock key={`X${indexX}Y${indexY}`} class="exit" size={size} gotPlayer={0}/>
+                            return <GameBlock key={`X${indexX}Y${indexY}`} class="exit" size={this.props.size}/>
                         }else if(object.wall===0 && object.hasPlayer===1){
-                            return <GameBlock key={`X${indexX}Y${indexY}`} class="pass" size={size} gotPlayer={1}/>
+                            return <GameBlock key={`X${indexX}Y${indexY}`} class="pass" size={this.props.size}/>
                         }else if(object.wall===0){
-                            return <GameBlock key={`X${indexX}Y${indexY}`} class="pass" size={size} gotPlayer={0}/>
+                            return <GameBlock key={`X${indexX}Y${indexY}`} class="pass" size={this.props.size}/>
                         }else{
-                            return <GameBlock key={`X${indexX}Y${indexY}`} class="wall" size={size} />
+                            return <GameBlock key={`X${indexX}Y${indexY}`} class="wall" size={this.props.size} />
                         }}))});
         }
         return output
@@ -59,7 +46,7 @@ class GameBlock extends Component{
     render() {
         return(
             <div className={`game_block ${this.props.class}`}
-                 style={{width:100/this.props.size+"%", height:100/this.props.size+"%"}}/>)
+                 style={{width:this.props.size+"px", height:this.props.size+"px"}}/>)
 
     }
 }
