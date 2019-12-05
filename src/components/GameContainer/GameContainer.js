@@ -83,14 +83,14 @@ class GameContainer extends Component{
     handleMoveRight=()=>{
         let singleBlockSize = this.state.singleBlockSize;
         let positionAbsolute= this.state.player1positionAbsolute;
-        let positionRelative= [this.state.player1positionRelative[0]+4,
+        let positionRelative= [this.state.player1positionRelative[0]+(singleBlockSize/16),
             this.state.player1positionRelative[1]];
-        if (positionRelative[0]+(singleBlockSize*0.75)>singleBlockSize && (positionRelative[1]<0 || positionRelative[1]+(singleBlockSize*0.25)>singleBlockSize)){
+        if (positionRelative[0]+(singleBlockSize*0.375)>singleBlockSize && (positionRelative[1]<0 || positionRelative[1]+(singleBlockSize*0.125)>singleBlockSize)){
             positionRelative=this.state.player1positionRelative
-        }else if(positionRelative[0]+(singleBlockSize*0.75)>singleBlockSize){
-            let offset = positionRelative[0]-(singleBlockSize*0.25);
+        }else if(positionRelative[0]+(singleBlockSize*0.375)>singleBlockSize){
+            let offset = positionRelative[0]-singleBlockSize;
             positionAbsolute=[positionAbsolute[0]+1,positionAbsolute[1]];
-            positionRelative=[offset-(singleBlockSize*0.75),positionRelative[1]]
+            positionRelative=[offset,positionRelative[1]]
         }
         if (this.state.level[1][positionAbsolute[1]][positionAbsolute[0]].isExit===1){
             this.handleCompleted()
@@ -101,12 +101,12 @@ class GameContainer extends Component{
     handleMoveLeft=()=>{
         let singleBlockSize = this.state.singleBlockSize;
         let positionAbsolute= this.state.player1positionAbsolute;
-        let positionRelative= [this.state.player1positionRelative[0]-4,
+        let positionRelative= [this.state.player1positionRelative[0]-(singleBlockSize/16),
             this.state.player1positionRelative[1]];
-        if (positionRelative[0]<0 && (positionRelative[1]<0 || positionRelative[1]+(singleBlockSize*0.25)>singleBlockSize)){
+        if (positionRelative[0]<0 && (positionRelative[1]<0 || positionRelative[1]+(singleBlockSize*0.125)>singleBlockSize)){
             positionRelative=this.state.player1positionRelative
         }else if(positionRelative[0]<0){
-            let offset = singleBlockSize;
+            let offset = singleBlockSize+positionRelative[0];
             positionAbsolute=[positionAbsolute[0]-1,positionAbsolute[1]];
             positionRelative=[offset,positionRelative[1]]
         }
@@ -120,11 +120,11 @@ class GameContainer extends Component{
         let singleBlockSize = this.state.singleBlockSize;
         let positionAbsolute= this.state.player1positionAbsolute;
         let positionRelative= [this.state.player1positionRelative[0],
-            this.state.player1positionRelative[1]-4];
-        if (positionRelative[1]<0 && (positionRelative[0]<0 || positionRelative[0]+(singleBlockSize*0.75)>singleBlockSize)){
+            this.state.player1positionRelative[1]-(singleBlockSize/16)];
+        if (positionRelative[1]<0 && (positionRelative[0]<0 || positionRelative[0]+(singleBlockSize*0.375)>singleBlockSize)){
             positionRelative=this.state.player1positionRelative
         }else if(positionRelative[1]<0){
-            let offset = singleBlockSize;
+            let offset = singleBlockSize+positionRelative[1];
             positionAbsolute=[positionAbsolute[0],positionAbsolute[1]-1];
             positionRelative=[positionRelative[0],offset]
         }
@@ -138,13 +138,13 @@ class GameContainer extends Component{
         let singleBlockSize = this.state.singleBlockSize;
         let positionAbsolute= this.state.player1positionAbsolute;
         let positionRelative= [this.state.player1positionRelative[0],
-            this.state.player1positionRelative[1]+4];
-        if (positionRelative[1]+(singleBlockSize*0.25)>singleBlockSize && (positionRelative[0]<0 || positionRelative[0]+(singleBlockSize*0.75)>singleBlockSize)){
+            this.state.player1positionRelative[1]+(singleBlockSize/16)];
+        if (positionRelative[1]+(singleBlockSize*0.125)>singleBlockSize && (positionRelative[0]<0 || positionRelative[0]+(singleBlockSize*0.375)>singleBlockSize)){
             positionRelative=this.state.player1positionRelative
-        }else if(positionRelative[1]+(singleBlockSize*0.25)>singleBlockSize){
-            let offset = positionRelative[1]-(singleBlockSize*0.75);
+        }else if(positionRelative[1]+(singleBlockSize*0.125)>singleBlockSize){
+            let offset = positionRelative[1]-singleBlockSize;
             positionAbsolute=[positionAbsolute[0],positionAbsolute[1]+1];
-            positionRelative=[positionRelative[0],offset-(singleBlockSize*0.25)]
+            positionRelative=[positionRelative[0],offset]
         }
         if (this.state.level[1][positionAbsolute[1]][positionAbsolute[0]].isExit===1){
             this.handleCompleted()
@@ -159,7 +159,7 @@ class GameContainer extends Component{
         }else if (this.state.difficulty===6){
             console.log("Brawo, pora na kolejny poziom");
             this.setState({difficulty:3, size:this.state.size+5, singleBlockSize:window.innerHeight*0.88/(this.state.size+5)})
-        }else if (this.state.size>60){
+        }else if (this.state.size>90){
             console.log("brawo, ale nie ma więcej poziomów dla Ciebie")
         }else{
             console.log("coś jest nie tak")
@@ -169,10 +169,10 @@ class GameContainer extends Component{
         if(this.state.level.length!==0){
             let posTop = (this.state.player1positionAbsolute[1] * this.state.singleBlockSize + this.state.player1positionRelative[1]) - this.state.singleBlockSize*this.state.size;
             let posLeft = this.state.player1positionAbsolute[0] * this.state.singleBlockSize + this.state.player1positionRelative[0];
-            let playerShadow = this.state.singleBlockSize/4;
+            let playerShadow = this.state.singleBlockSize/8;
             let playerShadowWidth = playerShadow*3;
-            let offsetTop = -(playerShadow*2)+32*((10/this.state.size)-1);
-            let offsetLeft = 32*((10/this.state.size)-1);
+            let offsetTop = -(playerShadow*5)+32*((10/this.state.size)-1);
+            let offsetLeft = -(playerShadow*1.5)+32*((10/this.state.size)-1);
             return(
                 <div className="game__container">
                     <GameGrid level={this.state.level[1]} size={this.state.singleBlockSize}/>
