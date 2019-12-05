@@ -3,9 +3,7 @@ import './GameGrid.scss';
 
 class GameGrid extends Component{
     shouldComponentUpdate(prevProps) {
-        if (this.props.level!==prevProps.level){
-            return true
-        }else return false
+        return this.props.level !== prevProps.level;
     }
     buildLevel(level){
         let output;
@@ -13,16 +11,10 @@ class GameGrid extends Component{
             output = level.map((elem, indexY) => {
                 return (
                     elem.map((object, indexX) => {
-                        if (object.isEnter===1 && object.hasPlayer===1){
+                        if(object.isEnter===1){
                             return <GameBlock key={`X${indexX}Y${indexY}`} class="enter" size={this.props.size}/>
-                        }else if(object.isEnter===1){
-                            return <GameBlock key={`X${indexX}Y${indexY}`} class="enter" size={this.props.size}/>
-                        }else if(object.isExit===1 && object.hasPlayer===1){
-                            return <GameBlock key={`X${indexX}Y${indexY}`} class="exit" size={this.props.size}/>
                         }else if(object.isExit===1){
                             return <GameBlock key={`X${indexX}Y${indexY}`} class="exit" size={this.props.size}/>
-                        }else if(object.wall===0 && object.hasPlayer===1){
-                            return <GameBlock key={`X${indexX}Y${indexY}`} class="pass" size={this.props.size}/>
                         }else if(object.wall===0){
                             return <GameBlock key={`X${indexX}Y${indexY}`} class="pass" size={this.props.size}/>
                         }else{

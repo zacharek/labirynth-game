@@ -10,8 +10,8 @@ class GameUI extends Component{
     handleClickRestart = ()=>{
         this.setState({restarted:this.state.restarted+1})
     };
-    handleScore=(difficultyMultiplier)=>{
-        let score=this.state.score +difficultyMultiplier.size*difficultyMultiplier.difficulty;
+    handleScore=(size,difficulty)=>{
+        let score=this.state.score + (this.props.genSettings.entrySize/10)*(size*difficulty);
         this.setState({score:score})
     };
     render() {
@@ -23,7 +23,7 @@ class GameUI extends Component{
                         <div onClick={this.props.handleExit}>EXIT</div>
                     </div>
                     <div className="main">
-                        <GameContainer start={this.state.restarted} genSettings={this.props.genSettings} score={this.handleScore} game/>
+                        <GameContainer start={this.state.restarted} genSettings={this.props.genSettings} score={(size,difficulty)=>this.handleScore(size,difficulty)} startOnClick={this.handleClickRestart}game/>
                     </div>
                     <div className="players__info">
                         <h2>PLAYER</h2>

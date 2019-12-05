@@ -16,46 +16,31 @@ class GameContainer extends Component{
     };
     shouldComponentUpdate(prevProps, prevState) {
         let lvl;
-        let singleBlockSize=this.state.singleBlockSize;
+        let singleBlockSize = this.state.singleBlockSize;
         if (this.props.start !== prevProps.start) {
             lvl = generateLevel(this.state.size, this.state.difficulty);
-        }else if (this.state.difficulty !== prevState.difficulty && this.state.size !== prevState.size) {
+        } else if (this.state.difficulty !== prevState.difficulty && this.state.size !== prevState.size) {
             lvl = generateLevel(this.state.size + 5, 3);
-            singleBlockSize=window.innerHeight*0.88/(this.state.size+5)
+            singleBlockSize = window.innerHeight * 0.88 / (this.state.size + 5)
         } else if (this.state.size !== prevState.size) {
             lvl = generateLevel(this.state.size + 5, this.state.difficulty);
-            singleBlockSize=window.innerHeight*0.88/(this.state.size+5)
+            singleBlockSize = window.innerHeight * 0.88 / (this.state.size + 5)
         } else if (this.state.difficulty !== prevState.difficulty) {
             lvl = generateLevel(this.state.size, this.state.difficulty + 1)
-        }else if(this.state.player1positionRelative!==prevState.player1positionRelative){
+        } else if (this.state.player1positionRelative !== prevState.player1positionRelative) {
             return true
-        }else {
+        } else {
             return this.state.level[0] !== prevState.level[0];
         }
         this.setState({
             singleBlockSize: singleBlockSize,
             level: lvl,
-            player1positionAbsolute:lvl[0],
-            player1positionRelative:[this.state.singleBlockSize/8,this.state.singleBlockSize/2],
-            player1moving:"standby"});
+            player1positionAbsolute: lvl[0],
+            player1positionRelative: [this.state.singleBlockSize / 4, this.state.singleBlockSize / 2],
+            player1moving: "standby"
+        });
         return true
-
-        /*let lvl
-        if (this.props.start !== prevProps.start) {
-            lvl = generateLevel(this.state.size, this.state.difficulty)
-        } else if (this.state.difficulty !== prevState.difficulty && this.state.size !== prevState.size) {
-            lvl = generateLevel(this.state.size + 5, 3)
-        } else if (this.state.size !== prevState.size) {
-            lvl = generateLevel(this.state.size + 5, this.state.difficulty)
-        } else if (this.state.difficulty !== prevState.difficulty) {
-            lvl = generateLevel(this.state.size, this.state.difficulty + 1)
-        } else {
-            return this.state.level[0] !== prevState.level[0];
-        }
-        this.setState({level: lvl})
-        return true*/
     }
-
     componentDidMount(){
         window.addEventListener("keydown",(e)=>{
             if(e.code==="KeyD" || e.code==="ArrowRight"){
@@ -153,14 +138,20 @@ class GameContainer extends Component{
         }
     };
     handleCompleted=()=>{
-        if (this.state.difficulty<6){
-            console.log("Brawo, pora na kolejny poziom");
+        if (this.state.size>100) {
+            //finished screen
+        }else if(this.state.size>40 && this.state.difficulty<9){
+            this.props.score(this.state.size, this.state.difficulty);
+            this.setState({difficulty:this.state.difficulty+1})
+        }else if(this.state.size>40 && this.state.difficulty===9){
+            this.props.score(this.state.size, this.state.difficulty);
+            this.setState({difficulty:5, size:this.state.size+5})
+        }else if (this.state.difficulty<6){
+            this.props.score(this.state.size, this.state.difficulty);
             this.setState({difficulty:this.state.difficulty+1})
         }else if (this.state.difficulty===6){
-            console.log("Brawo, pora na kolejny poziom");
-            this.setState({difficulty:3, size:this.state.size+5, singleBlockSize:window.innerHeight*0.88/(this.state.size+5)})
-        }else if (this.state.size>90){
-            console.log("brawo, ale nie ma więcej poziomów dla Ciebie")
+            this.props.score(this.state.size, this.state.difficulty);
+            this.setState({difficulty:3, size:this.state.size+5})
         }else{
             console.log("coś jest nie tak")
         }
@@ -184,6 +175,10 @@ class GameContainer extends Component{
         }else{
             return(
                 <div className="game__container">
+                    <div className="message">
+                        <p onClick={this.props.startOnClick}>START</p>
+                        <div>USE [W][S][A][D] TO MOVE</div>
+                    </div>
                 </div>
             )
         }

@@ -38,6 +38,7 @@
           border: 3px solid black;
           line-height: 4vw;
           cursor: pointer;
+          background-color: #8d3011;
         }
         li:hover{
           transform: scale(1.1);
@@ -51,6 +52,7 @@
       flex-direction: column;
       justify-content: space-evenly;
       .play{
+        background-color: darkorange;
         font-size: 6vw;
         border: 3px solid black;
         height: 8vw;
@@ -58,9 +60,11 @@
         cursor: pointer;
       }
       .play:hover{
+
         transform: scale(1.1);
       }
       .credits{
+        background-color: #8d3011;
         height: 8vw;
         border: 3px solid black;
         font-size: 6vw;
@@ -75,6 +79,7 @@
       width: 30%;
       height: 100%;
       .character__slider{
+        background-color: #8d3011;
         display: flex;
         justify-content: center;
         align-items: center;
