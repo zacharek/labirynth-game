@@ -11,8 +11,9 @@ class GameContainer extends Component{
         difficulty:this.props.genSettings.entryDifficulty, //min 1 max 6
         player1positionAbsolute:[0,0],
         player1positionRelative:[0,0],
-        player1moving:"standby"
-
+        player1moving:"standby",
+        player1VelocityX:0,
+        player1VelocityY:0
     };
     shouldComponentUpdate(prevProps, prevState) {
         let lvl;
@@ -103,8 +104,8 @@ class GameContainer extends Component{
     };
     handleMoveUp=()=>{
         let singleBlockSize = this.state.singleBlockSize;
-        let positionAbsolute= this.state.player1positionAbsolute;
-        let positionRelative= [this.state.player1positionRelative[0],
+        let positionAbsolute = this.state.player1positionAbsolute;
+        let positionRelative = [this.state.player1positionRelative[0],
             this.state.player1positionRelative[1]-(singleBlockSize/16)];
         if (positionRelative[1]<0 && (positionRelative[0]<0 || positionRelative[0]+(singleBlockSize*0.375)>singleBlockSize)){
             positionRelative=this.state.player1positionRelative
@@ -157,13 +158,20 @@ class GameContainer extends Component{
         }
     };
     render() {
+
+        /*//movement
+        this.position.x += this.velocity.x;
+        this.position.y += this.velocity.y;
+        this.velocity.x *= this.inertia;
+        this.velocity.y *= this.inertia;*/
+
         if(this.state.level.length!==0){
             let posTop = (this.state.player1positionAbsolute[1] * this.state.singleBlockSize + this.state.player1positionRelative[1]) - this.state.singleBlockSize*this.state.size;
             let posLeft = this.state.player1positionAbsolute[0] * this.state.singleBlockSize + this.state.player1positionRelative[0];
             let playerShadow = this.state.singleBlockSize/8;
             let playerShadowWidth = playerShadow*3;
-            let offsetTop = -(playerShadow*5)+32*((10/this.state.size)-1);
-            let offsetLeft = -(playerShadow*1.5)+32*((10/this.state.size)-1);
+            let offsetTop = -(playerShadow*5)+64*((10/this.state.size)-1);
+            let offsetLeft = -(playerShadow*1.5)+64*((10/this.state.size)-1);
             return(
                 <div className="game__container">
                     <GameGrid level={this.state.level[1]} size={this.state.singleBlockSize}/>

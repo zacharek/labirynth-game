@@ -24,7 +24,7 @@ class GameGrid extends Component{
         return output
     }
     render() {
-        return <div className="game_grid" >{this.buildLevel(this.props.level,this.props.size)}</div>
+        return <div className="game_grid">{this.buildLevel(this.props.level,this.props.size)}</div>
     }
 }
 
@@ -36,10 +36,8 @@ class GameBlock extends Component{
 
     }
     render() {
-        return(
-            <div className={`game_block ${this.props.class}`}
-                 style={{width:this.props.size+"px", height:this.props.size+"px"}}/>)
-
+        return(<div className={`game_block ${this.props.class}`}
+                    style={{width:this.props.size+"px", height:this.props.size+"px"}}/>)
     }
 }
 
