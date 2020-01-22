@@ -1,9 +1,10 @@
 .game_grid{
-  display: flex;
-  flex-wrap: wrap;
   background: url("textures/grass.png");
   height: 88vh;
   width: 88vh;
+}
+.game_block{
+  float: left;
 }
 .wall{
   background: url("textures/stone.png");

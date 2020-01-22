@@ -14,14 +14,14 @@ npm install npm start
 Open http://localhost:3000
 
 ## Currently working on
-+ Adding interia to movement
++ Movement interia
 + Fixing animation not stopping when player velocity is 0
 + Proper scaling of character on different resolutions 
 
 ## Upcoming features
 + New UI and textures
-+ Multiplayer Battle(will be possible to play on one computer with up to four players)
-+ Zooming Game field
-+ Sounds
 + Adding instruction how to play to menu 
 + Support for mobiles
++ Multiplayer Battle(will be possible to play on one computer with up to four players)
++ Zoomable Game field
++ Sounds

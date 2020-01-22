@@ -19,7 +19,9 @@ class GameGrid extends Component{
                             return <GameBlock key={`X${indexX}Y${indexY}`} class="pass" size={this.props.size}/>
                         }else{
                             return <GameBlock key={`X${indexX}Y${indexY}`} class="wall" size={this.props.size} />
-                        }}))});
+                        }})
+
+                )});
         }
         return output
     }

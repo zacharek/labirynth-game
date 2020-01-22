@@ -5,7 +5,7 @@ import generateLevel from "../LevelGeneration/generateLevel";
 
 class GameContainer extends Component{
     state={
-        singleBlockSize:window.innerHeight*0.88/this.props.genSettings.entrySize,
+        singleBlockSize:window.innerHeight * 0.88 / this.props.genSettings.entrySize,
         level:[],
         size:this.props.genSettings.entrySize, //min 10 max 50
         difficulty:this.props.genSettings.entryDifficulty, //min 1 max 6
@@ -18,19 +18,21 @@ class GameContainer extends Component{
     shouldComponentUpdate(prevProps, prevState) {
         let lvl;
         let singleBlockSize = this.state.singleBlockSize;
+        if (this.state.singleBlockSize !== prevState.singleBlockSize){
+            console.log(this.state.singleBlockSize);
+            singleBlockSize = window.innerHeight * 0.88 / this.state.size;
+        }
         if (this.props.start !== prevProps.start) {
             lvl = generateLevel(this.state.size, this.state.difficulty);
-        } else if (this.state.difficulty !== prevState.difficulty && this.state.size !== prevState.size) {
+        }else if (this.state.difficulty !== prevState.difficulty && this.state.size !== prevState.size) {
             lvl = generateLevel(this.state.size + 5, 3);
             singleBlockSize = window.innerHeight * 0.88 / (this.state.size + 5)
-        } else if (this.state.size !== prevState.size) {
+        }else if (this.state.size !== prevState.size) {
             lvl = generateLevel(this.state.size + 5, this.state.difficulty);
             singleBlockSize = window.innerHeight * 0.88 / (this.state.size + 5)
-        } else if (this.state.difficulty !== prevState.difficulty) {
+        }else if (this.state.difficulty !== prevState.difficulty) {
             lvl = generateLevel(this.state.size, this.state.difficulty + 1)
-        } else if (this.state.player1positionRelative !== prevState.player1positionRelative) {
-            return true
-        } else {
+        }else {
             return this.state.level[0] !== prevState.level[0];
         }
         this.setState({
@@ -40,7 +42,9 @@ class GameContainer extends Component{
             player1positionRelative: [this.state.singleBlockSize / 4, this.state.singleBlockSize / 2],
             player1moving: "standby"
         });
-        return true
+        if (this.state.player1positionRelative !== prevState.player1positionRelative) {
+            return true
+        }
     }
     componentDidMount(){
         window.addEventListener("keydown",(e)=>{
