@@ -2,7 +2,11 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 Randomly generated labyrinth. Main objective is to through the maze as fast sa you can. Project is about half way completed. 
 Mobiles are not supported yet. On resolutions other than FullHD character will not scale properly.
-+ Animations for player's character were currently disabled due to unexpected behaviour(going to fix it soon)!
+
+## How to play
++ Use WSAD or Arrow Keys to move 
++ Try to find exit as quick as possible (looks like a trapdoor)
++ Every level is a little bit harder than the previous one
 
 ## Demo
 https://zacharek.github.io/labyrinth-game/
@@ -16,7 +20,6 @@ Open http://localhost:3000
 ## Currently working on
 + Movement interia
 + Fixing animation not stopping when player velocity is 0
-+ Proper scaling of character on different resolutions 
 
 ## Upcoming features
 + New UI and textures

@@ -1,9 +1,6 @@
-.game_grid{
-  background: url("textures/grass.png");
-  height: 88vh;
-  width: 88vh;
-}
+
 .game_block{
+  box-sizing: border-box;
   float: left;
 }
 .wall{
@@ -11,9 +8,12 @@
   background-size: contain;
 }
 .pass {
+  background: url("textures/grass.png");
+  background-size: contain;
 }
 .enter{
-  background: url("textures/enter.png");
+  background: url("textures/grass.png");
+  //background: url("textures/enter.png");
   background-size: contain;
 }
 .exit{
@@ -23,4 +23,3 @@
 .in__game{
   position: relative;
 }
-

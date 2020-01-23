@@ -32,6 +32,10 @@ class GameContainer extends Component{
         }else if (this.state.player1positionRelative !== prevState.player1positionRelative) {
             return true
         }else if(this.state.singleBlockSize !== prevState.singleBlockSize){
+            let scaleMultiplier = window.innerHeight/1512;
+            this.setState({
+                player1positionRelative:[this.state.player1positionRelative[0]*scaleMultiplier,this.state.player1positionRelative[1]*scaleMultiplier]
+            })
             return true
         }else {
             return this.state.level[0] !== prevState.level[0];
@@ -47,22 +51,22 @@ class GameContainer extends Component{
     }
     componentDidMount(){
         window.addEventListener("keydown",(e)=>{
-            if(e.code==="KeyD" || e.code==="ArrowRight"){
+            if(e.code === "KeyD" || e.code === "ArrowRight"){
                 this.handleMoveRight()
-            }else if(e.code==="KeyA" || e.code==="ArrowLeft"){
+            }else if(e.code === "KeyA" || e.code === "ArrowLeft"){
                 this.handleMoveLeft()
-            }else if(e.code==="KeyW" || e.code==="ArrowUp"){
+            }else if(e.code === "KeyW" || e.code === "ArrowUp"){
                 this.handleMoveUp()
-            }else if(e.code==="KeyS" || e.code==="ArrowDown") {
+            }else if(e.code === "KeyS" || e.code === "ArrowDown") {
                 this.handleMoveDown()
             }
         });
         window.addEventListener("resize", ()=>{
             let singleBlockSize;
-            if (this.state.size!==this.props.genSettings.entrySize){
-                singleBlockSize=window.innerHeight*0.88/this.state.size
+            if (this.state.size !== this.props.genSettings.entrySize){
+                singleBlockSize = window.innerHeight*0.88/this.state.size
             }else{
-                singleBlockSize=window.innerHeight*0.88/this.props.genSettings.entrySize
+                singleBlockSize = window.innerHeight*0.88/this.props.genSettings.entrySize
             }
             this.setState({
                 singleBlockSize:singleBlockSize
@@ -71,8 +75,8 @@ class GameContainer extends Component{
     }
     handleMoveRight=()=>{
         let singleBlockSize = this.state.singleBlockSize;
-        let positionAbsolute= this.state.player1positionAbsolute;
-        let positionRelative= [this.state.player1positionRelative[0]+(singleBlockSize/16),
+        let positionAbsolute = this.state.player1positionAbsolute;
+        let positionRelative = [this.state.player1positionRelative[0]+(singleBlockSize/16),
             this.state.player1positionRelative[1]];
         if (positionRelative[0]+(singleBlockSize*0.375)>singleBlockSize && (positionRelative[1]<0 || positionRelative[1]+(singleBlockSize*0.125)>singleBlockSize)){
             positionRelative=this.state.player1positionRelative
@@ -89,8 +93,8 @@ class GameContainer extends Component{
     };
     handleMoveLeft=()=>{
         let singleBlockSize = this.state.singleBlockSize;
-        let positionAbsolute= this.state.player1positionAbsolute;
-        let positionRelative= [this.state.player1positionRelative[0]-(singleBlockSize/16),
+        let positionAbsolute = this.state.player1positionAbsolute;
+        let positionRelative = [this.state.player1positionRelative[0]-(singleBlockSize/16),
             this.state.player1positionRelative[1]];
         if (positionRelative[0]<0 && (positionRelative[1]<0 || positionRelative[1]+(singleBlockSize*0.125)>singleBlockSize)){
             positionRelative=this.state.player1positionRelative
@@ -125,8 +129,8 @@ class GameContainer extends Component{
     };
     handleMoveDown=()=>{
         let singleBlockSize = this.state.singleBlockSize;
-        let positionAbsolute= this.state.player1positionAbsolute;
-        let positionRelative= [this.state.player1positionRelative[0],
+        let positionAbsolute = this.state.player1positionAbsolute;
+        let positionRelative = [this.state.player1positionRelative[0],
             this.state.player1positionRelative[1]+(singleBlockSize/16)];
         if (positionRelative[1]+(singleBlockSize*0.125)>singleBlockSize && (positionRelative[0]<0 || positionRelative[0]+(singleBlockSize*0.375)>singleBlockSize)){
             positionRelative=this.state.player1positionRelative
@@ -167,19 +171,19 @@ class GameContainer extends Component{
         this.position.y += this.velocity.y;
         this.velocity.x *= this.inertia;
         this.velocity.y *= this.inertia;*/
-
         if(this.state.level.length!==0){
             let posTop = (this.state.player1positionAbsolute[1] * this.state.singleBlockSize + this.state.player1positionRelative[1]) - this.state.singleBlockSize*this.state.size;
             let posLeft = this.state.player1positionAbsolute[0] * this.state.singleBlockSize + this.state.player1positionRelative[0];
             let playerShadow = this.state.singleBlockSize/8;
             let playerShadowWidth = playerShadow*3;
-            let offsetTop = -(playerShadow*5)+64*((10/this.state.size)-1);
-            let offsetLeft = -(playerShadow*1.5)+64*((10/this.state.size)-1);
+            let resolutionMultiplier = 32*((window.innerHeight/1512)*(10/this.state.size)-1);
+            let offsetTop = -(playerShadow*3.25)+ resolutionMultiplier;
+            let offsetLeft = -(playerShadow*3/8)+ resolutionMultiplier;
             return(
                 <div className="game__container">
                     <GameGrid level={this.state.level[1]} size={this.state.singleBlockSize}/>
                     <div className="player__shadow" style={{top:posTop+"px", left:posLeft+"px", height:playerShadow, width:playerShadowWidth}}>
-                        <div className={`character ${this.state.player1moving}`} style={{top:offsetTop, left:offsetLeft, transform:`scale(${10/this.state.size})`}}/>
+                        <div className={`character ${this.state.player1moving}`} style={{top:offsetTop, left:offsetLeft, transform:`scale(${10/this.state.size*(window.innerHeight/1512)})`}}/>
                     </div>
                 </div>
             )
