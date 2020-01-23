@@ -18,10 +18,7 @@ class GameContainer extends Component{
     shouldComponentUpdate(prevProps, prevState) {
         let lvl;
         let singleBlockSize = this.state.singleBlockSize;
-        if (this.state.singleBlockSize !== prevState.singleBlockSize){
-            console.log(this.state.singleBlockSize);
-            singleBlockSize = window.innerHeight * 0.88 / this.state.size;
-        }
+        
         if (this.props.start !== prevProps.start) {
             lvl = generateLevel(this.state.size, this.state.difficulty);
         }else if (this.state.difficulty !== prevState.difficulty && this.state.size !== prevState.size) {
@@ -32,6 +29,10 @@ class GameContainer extends Component{
             singleBlockSize = window.innerHeight * 0.88 / (this.state.size + 5)
         }else if (this.state.difficulty !== prevState.difficulty) {
             lvl = generateLevel(this.state.size, this.state.difficulty + 1)
+        }else if (this.state.player1positionRelative !== prevState.player1positionRelative) {
+            return true
+        }else if(this.state.singleBlockSize !== prevState.singleBlockSize){
+            return true
         }else {
             return this.state.level[0] !== prevState.level[0];
         }
@@ -42,9 +43,7 @@ class GameContainer extends Component{
             player1positionRelative: [this.state.singleBlockSize / 4, this.state.singleBlockSize / 2],
             player1moving: "standby"
         });
-        if (this.state.player1positionRelative !== prevState.player1positionRelative) {
-            return true
-        }
+        return true
     }
     componentDidMount(){
         window.addEventListener("keydown",(e)=>{
@@ -54,7 +53,7 @@ class GameContainer extends Component{
                 this.handleMoveLeft()
             }else if(e.code==="KeyW" || e.code==="ArrowUp"){
                 this.handleMoveUp()
-            }else if(e.code==="KeyS" || e.code==="ArrowDown"){
+            }else if(e.code==="KeyS" || e.code==="ArrowDown") {
                 this.handleMoveDown()
             }
         });

@@ -3,7 +3,7 @@ import './GameGrid.scss';
 
 class GameGrid extends Component{
     shouldComponentUpdate(prevProps) {
-        return this.props.level !== prevProps.level;
+        return this.props.level !== prevProps.level || this.props.size !== prevProps.size;
     }
     buildLevel(level){
         let output;
