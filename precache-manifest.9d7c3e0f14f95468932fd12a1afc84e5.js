@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "82462dbd1983feb3c56adbc479b4cf43",
+    "revision": "511580087cf546f2078f7ffffbaddd7b",
     "url": "/labyrinth-game/index.html"
   },
   {
-    "revision": "c4e911036fc04bb622c6",
-    "url": "/labyrinth-game/static/css/main.c6db06bf.chunk.css"
+    "revision": "13e045546b583f5b0802",
+    "url": "/labyrinth-game/static/css/main.09f001b7.chunk.css"
   },
   {
     "revision": "18ee98325b6a33172f1b",
     "url": "/labyrinth-game/static/js/2.f8fcd6ae.chunk.js"
   },
   {
-    "revision": "c4e911036fc04bb622c6",
-    "url": "/labyrinth-game/static/js/main.37aedc4d.chunk.js"
+    "revision": "13e045546b583f5b0802",
+    "url": "/labyrinth-game/static/js/main.d949af1d.chunk.js"
   },
   {
     "revision": "03767259508df30993c0",
@@ -30,10 +30,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "c0cfe6a36e26c5e30048f015182554eb",
     "url": "/labyrinth-game/static/media/Player1.c0cfe6a3.png"
-  },
-  {
-    "revision": "20cb28b72b1446aabb772d09742989a8",
-    "url": "/labyrinth-game/static/media/enter.20cb28b7.png"
   },
   {
     "revision": "2fde92975b1446db514cee2ff4059e03",
