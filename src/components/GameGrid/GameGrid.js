@@ -20,7 +20,6 @@ class GameGrid extends Component{
                         }else{
                             return <GameBlock key={`X${indexX}Y${indexY}`} class="wall" size={this.props.size} />
                         }})
-
                 )});
         }
         return output

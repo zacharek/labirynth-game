@@ -1,10 +1,14 @@
 ## Labyrinth Game
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 Randomly generated labyrinth. Main objective is to through the maze as fast sa you can. Project is about half way completed. 
-Mobiles are not supported yet. On resolutions other than FullHD character will not scale properly.
+Mobiles are not supported yet.
+
+## Technologies used
++ React.js 16.12.0
 
 ## How to play
-+ Use WSAD or Arrow Keys to move 
++ Use WSAD or Arrow Keys to move
++ Starting tile is randomly selected 
 + Try to find exit as quick as possible (looks like a trapdoor)
 + Every level is a little bit harder than the previous one
 
@@ -12,7 +16,12 @@ Mobiles are not supported yet. On resolutions other than FullHD character will n
 https://zacharek.github.io/labyrinth-game/
 
 ## Install
-npm install npm start
+To run this project, install it locally using npm:
+```
+$ cd ../labyrinth-game
+$ npm install
+$ npm start
+```
 
 ## Play
 Open http://localhost:3000

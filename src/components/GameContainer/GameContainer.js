@@ -7,8 +7,8 @@ class GameContainer extends Component{
     state={
         singleBlockSize:window.innerHeight * 0.88 / this.props.genSettings.entrySize,
         level:[],
-        size:this.props.genSettings.entrySize, //min 10 max 50
-        difficulty:this.props.genSettings.entryDifficulty, //min 1 max 6
+        size:this.props.genSettings.entrySize,
+        difficulty:this.props.genSettings.entryDifficulty,
         player1positionAbsolute:[0,0],
         player1positionRelative:[0,0],
         player1moving:"standby",

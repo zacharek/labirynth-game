@@ -53,7 +53,7 @@ class MenuStandard extends Component{
                         <div className="character__selection">
                             <h3>CHARACTER</h3>
                             <div className="character__slider">
-                                <div className="character in__menu move-right"></div>
+                                <div className="character in__menu standby"></div>
                             </div>
                         </div>
                     </div>
