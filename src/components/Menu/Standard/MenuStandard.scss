@@ -43,6 +43,9 @@
         li:hover{
           transform: scale(1.1);
         }
+        .selected{
+          background-color: darkorange;
+        }
       }
     }
     .main{

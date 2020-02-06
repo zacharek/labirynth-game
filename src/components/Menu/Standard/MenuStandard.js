@@ -18,9 +18,9 @@ class MenuStandard extends Component{
                         <div className="difficulty__box">
                             <h3>DIFFICULTY</h3>
                             <ul>
-                                <li onClick={()=>this.props.handleDifficulty(1)}>EASY</li>
-                                <li onClick={()=>this.props.handleDifficulty(2)}>NORMAL</li>
-                                <li onClick={()=>this.props.handleDifficulty(3)}>HARD</li>
+                                <li className={this.props.difficulty===1&&"selected"} onClick={()=>this.props.handleDifficulty(1)}>EASY</li>
+                                <li className={this.props.difficulty===2&&"selected"} onClick={()=>this.props.handleDifficulty(2)}>NORMAL</li>
+                                <li className={this.props.difficulty===3&&"selected"} onClick={()=>this.props.handleDifficulty(3)}>HARD</li>
                             </ul>
                         </div>
                         <div className="main">
@@ -30,7 +30,7 @@ class MenuStandard extends Component{
                         <div className="character__selection">
                             <h3>CHARACTER</h3>
                             <div className="character__slider">
-                                <div className="character in__menu standby"></div>
+                                <div className="character in__menu standby"/>
                             </div>
                         </div>
                     </div>
@@ -38,22 +38,23 @@ class MenuStandard extends Component{
             )
         }else{
             return(
+                //do skrócenia
                 <div className="menu__standard">
                     <h1>MAIN MENU</h1>
                     <div className="menu__content">
                         <div className="difficulty__box">
                             <h3>DIFFICULTY</h3>
                             <ul>
-                                <li onClick={()=>this.props.handleDifficulty(1)}>EASY</li>
-                                <li onClick={()=>this.props.handleDifficulty(2)}>NORMAL</li>
-                                <li onClick={()=>this.props.handleDifficulty(3)}>HARD</li>
+                                <li className={this.props.difficulty===1&&"selected"} onClick={()=>this.props.handleDifficulty(1)}>EASY</li>
+                                <li className={this.props.difficulty===2&&"selected"} onClick={()=>this.props.handleDifficulty(2)}>NORMAL</li>
+                                <li className={this.props.difficulty===3&&"selected"} onClick={()=>this.props.handleDifficulty(3)}>HARD</li>
                             </ul>
                         </div>
                         <Credits handleCredits={this.handleCredits}/>
                         <div className="character__selection">
                             <h3>CHARACTER</h3>
                             <div className="character__slider">
-                                <div className="character in__menu standby"></div>
+                                <div className="character in__menu standby"/>
                             </div>
                         </div>
                     </div>

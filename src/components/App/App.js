@@ -11,7 +11,8 @@ class App extends Component{
         generationSettings:{
             entryDifficulty:2,
             entrySize:10
-        }
+        },
+        difficulty:1
     };
     handleClickEntry = ()=>{
         this.setState({firstEntry:0})
@@ -38,7 +39,7 @@ class App extends Component{
                 entrySize:30
             }
         }
-        this.setState({generationSettings:genSettings})
+        this.setState({generationSettings:genSettings, difficulty:e})
     };
     render() {
         if (this.state.firstEntry!==0){
@@ -46,7 +47,7 @@ class App extends Component{
         }else if(this.state.inGame!==0){
             return <GameUI handleExit={this.handleClickMenu} genSettings={this.state.generationSettings}/>
         }else{
-            return <MenuStandard handlePlay={this.handleClickPlay} handleDifficulty={this.handleSetDifficulty}/>
+            return <MenuStandard handlePlay={this.handleClickPlay} handleDifficulty={this.handleSetDifficulty} difficulty={this.state.difficulty}/>
         }
     }
 }
