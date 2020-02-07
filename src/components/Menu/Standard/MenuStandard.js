@@ -18,9 +18,9 @@ class MenuStandard extends Component{
                         <div className="difficulty__box">
                             <h3>DIFFICULTY</h3>
                             <ul>
-                                <li className={this.props.difficulty===1&&"selected"} onClick={()=>this.props.handleDifficulty(1)}>EASY</li>
-                                <li className={this.props.difficulty===2&&"selected"} onClick={()=>this.props.handleDifficulty(2)}>NORMAL</li>
-                                <li className={this.props.difficulty===3&&"selected"} onClick={()=>this.props.handleDifficulty(3)}>HARD</li>
+                                <li className={this.props.difficulty===1?"selected":null} onClick={()=>this.props.handleDifficulty(1)}>EASY</li>
+                                <li className={this.props.difficulty===2?"selected":null} onClick={()=>this.props.handleDifficulty(2)}>NORMAL</li>
+                                <li className={this.props.difficulty===3?"selected":null} onClick={()=>this.props.handleDifficulty(3)}>HARD</li>
                             </ul>
                         </div>
                         <div className="main">
@@ -45,9 +45,9 @@ class MenuStandard extends Component{
                         <div className="difficulty__box">
                             <h3>DIFFICULTY</h3>
                             <ul>
-                                <li className={this.props.difficulty===1&&"selected"} onClick={()=>this.props.handleDifficulty(1)}>EASY</li>
-                                <li className={this.props.difficulty===2&&"selected"} onClick={()=>this.props.handleDifficulty(2)}>NORMAL</li>
-                                <li className={this.props.difficulty===3&&"selected"} onClick={()=>this.props.handleDifficulty(3)}>HARD</li>
+                                <li className={this.props.difficulty===1?"selected":null} onClick={()=>this.props.handleDifficulty(1)}>EASY</li>
+                                <li className={this.props.difficulty===2?"selected":null} onClick={()=>this.props.handleDifficulty(2)}>NORMAL</li>
+                                <li className={this.props.difficulty===3?"selected":null} onClick={()=>this.props.handleDifficulty(3)}>HARD</li>
                             </ul>
                         </div>
                         <Credits handleCredits={this.handleCredits}/>
