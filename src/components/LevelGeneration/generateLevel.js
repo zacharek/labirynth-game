@@ -9,8 +9,7 @@ function newLevel(gridSize){
         for (let x=1;x<=gridSize;x++){
             levelY.push({wall: 1,
                 isEnter: 0,
-                isExit: 0,
-                hasPlayer:0
+                isExit: 0
             });
         }
         level.push(levelY)
@@ -37,7 +36,6 @@ function newRoute(entryArray,length) {
     let errorCount=0;
     //sets entrance
     array[ranInY][ranInX].isEnter=1;
-    array[ranInY][ranInX].hasPlayer=1;
     array[ranInY][ranInX].wall=0;
     while (passArray.length<length){
         let setTurn = Math.ceil(Math.random() * 4);
