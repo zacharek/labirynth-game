@@ -17,6 +17,9 @@ function newLevel(gridSize) {
     }
     return level;
 }
+function caclRandNum (min = 1, max = 2) {
+  return Math.floor(Math.random() * max + min)
+}
 function createRoute(entryArray, length) {
     let passArray = [];
     let returnedObject;
@@ -28,30 +31,53 @@ function createRoute(entryArray, length) {
     }
     return [[passArray[0], passArray[1]], fillSpaces(returnedObject)];
 }
+function calcRandTurnDirection(){
+  const possibleTurns = ['up', 'down', 'left', 'right']
+  const index = caclRandNum(0, 3)
+
+  return possibleTurns[index]
+}
 function newRoute(entryArray, length) {
     let array = entryArray;
     //Entrance generation
-    let ranInY = Math.floor(Math.random() * (array.length - 2) + 1);
-    let ranInX = Math.floor(Math.random() * (array.length - 2) + 1);
-    let passArray = [ranInX, ranInY];
+    let randInY = caclRandNum(1, array.length - 2)
+    let randInX = caclRandNum(1, array.length - 2)
+    let passArray = [randInX, randInY];
     let errorCount = 0;
     //sets entrance
-    array[ranInY][ranInX].isEnter = 1;
-    array[ranInY][ranInX].wall = 0;
+    array[randInY][randInX].isEnter = 1;
+    array[randInY][randInX].wall = 0;
     while (passArray.length < length) {
-        let setTurn = Math.ceil(Math.random() * 4);
-        ranInX = passArray[passArray.length - 2];
-        ranInY = passArray[passArray.length - 1];
+        const setTurn = calcRandTurnDirection()
+        randInX = passArray[passArray.length - 2];
+        randInY = passArray[passArray.length - 1];
+        // TODO: move all conditionals into switch, make independet fn from it
+        // switch(setTurn) {
+        //   case 'up':
+
+        //     break
+        //   case 'down':
+
+        //     break
+        //   case 'left':
+
+        //     break
+        //   case 'right':
+
+        //     break
+        //   default:
+        //     errorCount++
+        // }
         if (errorCount > 10) {
             return { filledLevel: entryArray, routePositions: passArray };
-        } else if (setTurn === 1) {
-            if (array[ranInY + 1] !== undefined && array[ranInY + 1][ranInX] !== undefined) {
-                if (array[ranInY + 2] !== undefined && array[ranInY + 2][ranInX] !== undefined) {
-                    if (array[ranInY + 1][ranInX].wall === 1 && array[ranInY + 2][ranInX].wall === 1) {
-                        if (array[ranInY + 1][ranInX - 1] === undefined || (array[ranInY + 1][ranInX - 1] !== undefined && array[ranInY + 1][ranInX - 1].wall === 1)) {
-                            if (array[ranInY + 1][ranInX + 1] === undefined || (array[ranInY + 1][ranInX + 1] !== undefined && array[ranInY + 1][ranInX + 1].wall === 1)) {
-                                array[ranInY + 1][ranInX].wall = 0;
-                                passArray.push(ranInX, ranInY + 1);
+        } else if (setTurn === 'down') {
+            if (array[randInY + 1] !== undefined && array[randInY + 1][randInX] !== undefined) {
+                if (array[randInY + 2] !== undefined && array[randInY + 2][randInX] !== undefined) {
+                    if (array[randInY + 1][randInX].wall === 1 && array[randInY + 2][randInX].wall === 1) {
+                        if (array[randInY + 1][randInX - 1] === undefined || (array[randInY + 1][randInX - 1] !== undefined && array[randInY + 1][randInX - 1].wall === 1)) {
+                            if (array[randInY + 1][randInX + 1] === undefined || (array[randInY + 1][randInX + 1] !== undefined && array[randInY + 1][randInX + 1].wall === 1)) {
+                                array[randInY + 1][randInX].wall = 0;
+                                passArray.push(randInX, randInY + 1);
                                 errorCount = 0;
                             }
                         }
@@ -62,14 +88,14 @@ function newRoute(entryArray, length) {
             } else {
                 errorCount++;
             }
-        } else if (setTurn === 2) {
-            if (array[ranInY - 1] !== undefined && array[ranInY - 1][ranInX] !== undefined) {
-                if (array[ranInY - 2] !== undefined && array[ranInY - 2][ranInX] !== undefined) {
-                    if (array[ranInY - 1][ranInX].wall === 1 && array[ranInY - 2][ranInX].wall === 1) {
-                        if (array[ranInY - 1][ranInX - 1] === undefined || (array[ranInY - 1][ranInX - 1] !== undefined && array[ranInY - 1][ranInX - 1].wall === 1)) {
-                            if (array[ranInY - 1][ranInX + 1] === undefined || (array[ranInY - 1][ranInX + 1] !== undefined && array[ranInY - 1][ranInX + 1].wall === 1)) {
-                                array[ranInY - 1][ranInX].wall = 0;
-                                passArray.push(ranInX, ranInY - 1);
+        } else if (setTurn === 'up') {
+            if (array[randInY - 1] !== undefined && array[randInY - 1][randInX] !== undefined) {
+                if (array[randInY - 2] !== undefined && array[randInY - 2][randInX] !== undefined) {
+                    if (array[randInY - 1][randInX].wall === 1 && array[randInY - 2][randInX].wall === 1) {
+                        if (array[randInY - 1][randInX - 1] === undefined || (array[randInY - 1][randInX - 1] !== undefined && array[randInY - 1][randInX - 1].wall === 1)) {
+                            if (array[randInY - 1][randInX + 1] === undefined || (array[randInY - 1][randInX + 1] !== undefined && array[randInY - 1][randInX + 1].wall === 1)) {
+                                array[randInY - 1][randInX].wall = 0;
+                                passArray.push(randInX, randInY - 1);
                                 errorCount = 0;
                             }
                         }
@@ -80,14 +106,14 @@ function newRoute(entryArray, length) {
             } else {
                 errorCount++;
             }
-        } else if (setTurn === 3) {
-            if (array[ranInY] !== undefined && array[ranInY][ranInX + 1] !== undefined) {
-                if (array[ranInY] !== undefined && array[ranInY][ranInX + 2] !== undefined) {
-                    if (array[ranInY][ranInX + 1].wall === 1 && array[ranInY][ranInX + 2].wall === 1) {
-                        if ((array[ranInY + 1] === undefined || array[ranInY + 1][ranInX + 1] === undefined) || (array[ranInY + 1][ranInX + 1] !== undefined && array[ranInY + 1][ranInX + 1].wall === 1)) {
-                            if ((array[ranInY - 1] === undefined || array[ranInY - 1][ranInX + 1] === undefined) || (array[ranInY - 1][ranInX + 1] !== undefined && array[ranInY - 1][ranInX + 1].wall === 1)) {
-                                array[ranInY][ranInX + 1].wall = 0;
-                                passArray.push(ranInX + 1, ranInY);
+        } else if (setTurn === 'right') {
+            if (array[randInY] !== undefined && array[randInY][randInX + 1] !== undefined) {
+                if (array[randInY] !== undefined && array[randInY][randInX + 2] !== undefined) {
+                    if (array[randInY][randInX + 1].wall === 1 && array[randInY][randInX + 2].wall === 1) {
+                        if ((array[randInY + 1] === undefined || array[randInY + 1][randInX + 1] === undefined) || (array[randInY + 1][randInX + 1] !== undefined && array[randInY + 1][randInX + 1].wall === 1)) {
+                            if ((array[randInY - 1] === undefined || array[randInY - 1][randInX + 1] === undefined) || (array[randInY - 1][randInX + 1] !== undefined && array[randInY - 1][randInX + 1].wall === 1)) {
+                                array[randInY][randInX + 1].wall = 0;
+                                passArray.push(randInX + 1, randInY);
                                 errorCount = 0;
                             }
                         }
@@ -98,14 +124,14 @@ function newRoute(entryArray, length) {
             } else {
                 errorCount++;
             }
-        } else if (setTurn === 4) {
-            if (array[ranInY] !== undefined && array[ranInY][ranInX - 1] !== undefined) {
-                if (array[ranInY] !== undefined && array[ranInY][ranInX - 2] !== undefined) {
-                    if (array[ranInY][ranInX - 1].wall === 1 && array[ranInY][ranInX - 2].wall === 1) {
-                        if ((array[ranInY + 1] === undefined || array[ranInY + 1][ranInX - 1] === undefined) || (array[ranInY + 1][ranInX - 1] !== undefined && array[ranInY + 1][ranInX - 1].wall === 1)) {
-                            if ((array[ranInY - 1] === undefined || array[ranInY - 1][ranInX - 1] === undefined) || (array[ranInY - 1][ranInX - 1] !== undefined && array[ranInY - 1][ranInX - 1].wall === 1)) {
-                                array[ranInY][ranInX - 1].wall = 0;
-                                passArray.push(ranInX - 1, ranInY);
+        } else if (setTurn === 'left') {
+            if (array[randInY] !== undefined && array[randInY][randInX - 1] !== undefined) {
+                if (array[randInY] !== undefined && array[randInY][randInX - 2] !== undefined) {
+                    if (array[randInY][randInX - 1].wall === 1 && array[randInY][randInX - 2].wall === 1) {
+                        if ((array[randInY + 1] === undefined || array[randInY + 1][randInX - 1] === undefined) || (array[randInY + 1][randInX - 1] !== undefined && array[randInY + 1][randInX - 1].wall === 1)) {
+                            if ((array[randInY - 1] === undefined || array[randInY - 1][randInX - 1] === undefined) || (array[randInY - 1][randInX - 1] !== undefined && array[randInY - 1][randInX - 1].wall === 1)) {
+                                array[randInY][randInX - 1].wall = 0;
+                                passArray.push(randInX - 1, randInY);
                                 errorCount = 0;
                             }
                         }
@@ -131,23 +157,23 @@ function fillSpaces(object) {
         breakLength = mazeArray.length;
         let errorCount = 0;
         let ranPos = Math.round(Math.random() * mazeArray.length / 2) * 2;
-        let ranInX = mazeArray[ranPos];
-        let ranInY = mazeArray[ranPos + 1];
+        let randInX = mazeArray[ranPos];
+        let randInY = mazeArray[ranPos + 1];
         mazeArray.splice(ranPos, 2);
-        mazeArray.push(ranInX);
-        mazeArray.push(ranInY);
+        mazeArray.push(randInX);
+        mazeArray.push(randInY);
         while (errorCount < 10) {
             let setTurn = Math.ceil(Math.random() * 4);
-            ranInX = mazeArray[mazeArray.length - 2];
-            ranInY = mazeArray[mazeArray.length - 1];
+            randInX = mazeArray[mazeArray.length - 2];
+            randInY = mazeArray[mazeArray.length - 1];
             if (setTurn === 1) {
-                if (array[ranInY + 1] !== undefined && array[ranInY + 1][ranInX] !== undefined) {
-                    if (array[ranInY + 2] !== undefined && array[ranInY + 2][ranInX] !== undefined) {
-                        if (array[ranInY + 1][ranInX].wall === 1 && array[ranInY + 2][ranInX].wall === 1) {
-                            if (array[ranInY + 1][ranInX - 1] === undefined || (array[ranInY + 1][ranInX - 1] !== undefined && array[ranInY + 1][ranInX - 1].wall === 1)) {
-                                if (array[ranInY + 1][ranInX + 1] === undefined || (array[ranInY + 1][ranInX + 1] !== undefined && array[ranInY + 1][ranInX + 1].wall === 1)) {
-                                    array[ranInY + 1][ranInX].wall = 0;
-                                    mazeArray.push(ranInX, ranInY + 1);
+                if (array[randInY + 1] !== undefined && array[randInY + 1][randInX] !== undefined) {
+                    if (array[randInY + 2] !== undefined && array[randInY + 2][randInX] !== undefined) {
+                        if (array[randInY + 1][randInX].wall === 1 && array[randInY + 2][randInX].wall === 1) {
+                            if (array[randInY + 1][randInX - 1] === undefined || (array[randInY + 1][randInX - 1] !== undefined && array[randInY + 1][randInX - 1].wall === 1)) {
+                                if (array[randInY + 1][randInX + 1] === undefined || (array[randInY + 1][randInX + 1] !== undefined && array[randInY + 1][randInX + 1].wall === 1)) {
+                                    array[randInY + 1][randInX].wall = 0;
+                                    mazeArray.push(randInX, randInY + 1);
                                     errorCount = 0;
                                 }
                             }
@@ -159,13 +185,13 @@ function fillSpaces(object) {
                     errorCount++;
                 }
             } else if (setTurn === 2) {
-                if (array[ranInY - 1] !== undefined && array[ranInY - 1][ranInX] !== undefined) {
-                    if (array[ranInY - 2] !== undefined && array[ranInY - 2][ranInX] !== undefined) {
-                        if (array[ranInY - 1][ranInX].wall === 1 && array[ranInY - 2][ranInX].wall === 1) {
-                            if (array[ranInY - 1][ranInX - 1] === undefined || (array[ranInY - 1][ranInX - 1] !== undefined && array[ranInY - 1][ranInX - 1].wall === 1)) {
-                                if (array[ranInY - 1][ranInX + 1] === undefined || (array[ranInY - 1][ranInX + 1] !== undefined && array[ranInY - 1][ranInX + 1].wall === 1)) {
-                                    array[ranInY - 1][ranInX].wall = 0;
-                                    mazeArray.push(ranInX, ranInY - 1);
+                if (array[randInY - 1] !== undefined && array[randInY - 1][randInX] !== undefined) {
+                    if (array[randInY - 2] !== undefined && array[randInY - 2][randInX] !== undefined) {
+                        if (array[randInY - 1][randInX].wall === 1 && array[randInY - 2][randInX].wall === 1) {
+                            if (array[randInY - 1][randInX - 1] === undefined || (array[randInY - 1][randInX - 1] !== undefined && array[randInY - 1][randInX - 1].wall === 1)) {
+                                if (array[randInY - 1][randInX + 1] === undefined || (array[randInY - 1][randInX + 1] !== undefined && array[randInY - 1][randInX + 1].wall === 1)) {
+                                    array[randInY - 1][randInX].wall = 0;
+                                    mazeArray.push(randInX, randInY - 1);
                                     errorCount = 0;
                                 }
                             }
@@ -177,13 +203,13 @@ function fillSpaces(object) {
                     errorCount++;
                 }
             } else if (setTurn === 3) {
-                if (array[ranInY] !== undefined && array[ranInY][ranInX + 1] !== undefined) {
-                    if (array[ranInY] !== undefined && array[ranInY][ranInX + 2] !== undefined) {
-                        if (array[ranInY][ranInX + 1].wall === 1 && array[ranInY][ranInX + 2].wall === 1) {
-                            if ((array[ranInY + 1] === undefined || array[ranInY + 1][ranInX + 1] === undefined) || (array[ranInY + 1][ranInX + 1] !== undefined && array[ranInY + 1][ranInX + 1].wall === 1)) {
-                                if ((array[ranInY - 1] === undefined || array[ranInY - 1][ranInX + 1] === undefined) || (array[ranInY - 1][ranInX + 1] !== undefined && array[ranInY - 1][ranInX + 1].wall === 1)) {
-                                    array[ranInY][ranInX + 1].wall = 0;
-                                    mazeArray.push(ranInX + 1, ranInY);
+                if (array[randInY] !== undefined && array[randInY][randInX + 1] !== undefined) {
+                    if (array[randInY] !== undefined && array[randInY][randInX + 2] !== undefined) {
+                        if (array[randInY][randInX + 1].wall === 1 && array[randInY][randInX + 2].wall === 1) {
+                            if ((array[randInY + 1] === undefined || array[randInY + 1][randInX + 1] === undefined) || (array[randInY + 1][randInX + 1] !== undefined && array[randInY + 1][randInX + 1].wall === 1)) {
+                                if ((array[randInY - 1] === undefined || array[randInY - 1][randInX + 1] === undefined) || (array[randInY - 1][randInX + 1] !== undefined && array[randInY - 1][randInX + 1].wall === 1)) {
+                                    array[randInY][randInX + 1].wall = 0;
+                                    mazeArray.push(randInX + 1, randInY);
                                     errorCount = 0;
                                 }
                             }
@@ -195,13 +221,13 @@ function fillSpaces(object) {
                     errorCount++;
                 }
             } else if (setTurn === 4) {
-                if (array[ranInY] !== undefined && array[ranInY][ranInX - 1] !== undefined) {
-                    if (array[ranInY] !== undefined && array[ranInY][ranInX - 2] !== undefined) {
-                        if (array[ranInY][ranInX - 1].wall === 1 && array[ranInY][ranInX - 2].wall === 1) {
-                            if ((array[ranInY + 1] === undefined || array[ranInY + 1][ranInX - 1] === undefined) || (array[ranInY + 1][ranInX - 1] !== undefined && array[ranInY + 1][ranInX - 1].wall === 1)) {
-                                if ((array[ranInY - 1] === undefined || array[ranInY - 1][ranInX - 1] === undefined) || (array[ranInY - 1][ranInX - 1] !== undefined && array[ranInY - 1][ranInX - 1].wall === 1)) {
-                                    array[ranInY][ranInX - 1].wall = 0;
-                                    mazeArray.push(ranInX - 1, ranInY);
+                if (array[randInY] !== undefined && array[randInY][randInX - 1] !== undefined) {
+                    if (array[randInY] !== undefined && array[randInY][randInX - 2] !== undefined) {
+                        if (array[randInY][randInX - 1].wall === 1 && array[randInY][randInX - 2].wall === 1) {
+                            if ((array[randInY + 1] === undefined || array[randInY + 1][randInX - 1] === undefined) || (array[randInY + 1][randInX - 1] !== undefined && array[randInY + 1][randInX - 1].wall === 1)) {
+                                if ((array[randInY - 1] === undefined || array[randInY - 1][randInX - 1] === undefined) || (array[randInY - 1][randInX - 1] !== undefined && array[randInY - 1][randInX - 1].wall === 1)) {
+                                    array[randInY][randInX - 1].wall = 0;
+                                    mazeArray.push(randInX - 1, randInY);
                                     errorCount = 0;
                                 }
                             }
