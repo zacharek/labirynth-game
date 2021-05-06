@@ -25,3 +25,7 @@ yarn-error.log*
 
 # webstorm
 .idea/
+
+# vsc
+.code-workspace
+
