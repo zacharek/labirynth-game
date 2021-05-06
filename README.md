@@ -34,6 +34,15 @@ Open http://localhost:3000
 + New UI and textures
 + Adding instruction how to play to menu 
 + Support for mobiles
-+ Multiplayer Battle(will be possible to play on one computer with up to four players)
++ Multiplayer Battle(possibllity to play with up to four players on one computer)
 + Zoomable Game field
 + Sounds
+
+## 06.05.2021 Project Update
+Reviving project. To do list before adding new features
+
+TODO:
++ REFACTOR!!! Prio #1
++ Move to Newest React Prio #2
++ Move to TypeScript Prio #3
++ then new features will be added
