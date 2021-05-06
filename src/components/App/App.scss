@@ -1,6 +1,6 @@
 @font-face {
   font-family: ARCADECLASSIC;
-  src: url("./Fonts/ARCADECLASSIC.woff");
+  src: url("../../styles/fonts/ARCADECLASSIC.woff");
 }
 *{
   margin: 0;
@@ -9,7 +9,7 @@
 
 body{
   font-family: ARCADECLASSIC, apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  background: url("../EntryUI/img/12492931.png");
+  background: url("../../assets/img/wall.png");
 }
 #root{
   height: 90vh;

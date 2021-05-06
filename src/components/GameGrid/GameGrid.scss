@@ -4,20 +4,20 @@
   float: left;
 }
 .wall{
-  background: url("textures/stone.png");
+  background: url("../../assets/img/stone.png");
   background-size: contain;
 }
 .pass {
-  background: url("textures/grass.png");
+  background: url("../../assets/img/grass.png");
   background-size: contain;
 }
 .enter{
-  background: url("textures/grass.png");
-  //background: url("textures/enter.png");
+  background: url("../../assets/img/grass.png");
+  //background: url("../../assets/img/enter.png");
   background-size: contain;
 }
 .exit{
-  background: url("textures/exit.png");
+  background: url("../../assets/img/exit.png");
   background-size: contain;
 }
 .in__game{
